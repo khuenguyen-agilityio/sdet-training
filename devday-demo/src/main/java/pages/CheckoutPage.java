@@ -18,22 +18,40 @@ public class CheckoutPage extends UIInteractionSteps {
             checkout_complete = By.id("checkout_complete_container"),
             complete_text = By.xpath("//div[@class='complete-text']");
 
-    public IWebElement pageHeader() {return new WebElement($(page_header));}
+    public IWebElement pageHeader() {
+        return new WebElement($(page_header));
+    }
 
-    public IWebElement pageTitle() {return new WebElement($(page_title));}
+    public IWebElement pageTitle() {
+        return new WebElement($(page_title));
+    }
 
-    public IWebElement firstName() {return new WebElement($(first_name));}
+    public IWebElement firstName() {
+        return new WebElement($(first_name));
+    }
 
-    public IWebElement lastName() {return new WebElement($(last_name));}
+    public IWebElement lastName() {
+        return new WebElement($(last_name));
+    }
 
-    public IWebElement zipCode() {return new WebElement($(zip_code));}
+    public IWebElement zipCode() {
+        return new WebElement($(zip_code));
+    }
 
-    public IWebElement continueButton() {return new WebElement($(continue_button));}
+    public IWebElement continueButton() {
+        return new WebElement($(continue_button));
+    }
 
-    public IWebElement finishButton() {return new WebElement($(finish_button));}
+    public IWebElement finishButton() {
+        return new WebElement($(finish_button));
+    }
 
-    public IWebElement checkoutComplete() {return new WebElement($(checkout_complete));}
+    public IWebElement checkoutComplete() {
+        return new WebElement($(checkout_complete));
+    }
 
-    public IWebElement completeText() {return new WebElement($(complete_text));}
+    public IWebElement completeText() {
+        return new WebElement($(complete_text));
+    }
 
 }
