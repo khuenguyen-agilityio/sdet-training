@@ -1,4 +1,4 @@
-@regression
+@regression @Cura
 Feature: Cura Login
 
   @311
