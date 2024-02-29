@@ -5,6 +5,8 @@ import pages.LoginPage;
 
 import java.time.Duration;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class LoginPageActions {
     private LoginPage loginPage;
 
@@ -17,5 +19,15 @@ public class LoginPageActions {
         loginPage.inputEmail().getWrappedElement().sendKeys(email);
         loginPage.inputPassword().getWrappedElement().sendKeys(password);
         loginPage.buttonLogin().click();
+    }
+
+    public void verifyEmailErrorMessage(String msg) {
+        loginPage.errorMessageEmail().waitUntilVisible(Duration.ofSeconds(30));
+        assertThat(loginPage.errorMessageEmail().getText()).isEqualTo(msg);
+    }
+
+    public void verifyPasswordErrorMessage(String msg) {
+        loginPage.errorMessagePassword().waitUntilVisible(Duration.ofSeconds(30));
+        assertThat(loginPage.errorMessagePassword().getText()).isEqualTo(msg);
     }
 }
