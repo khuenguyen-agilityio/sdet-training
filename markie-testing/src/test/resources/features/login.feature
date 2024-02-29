@@ -19,3 +19,9 @@ Feature: User login to Markie application
     Given Login page is opened
     When Input information with specify email "wrongemail@gmail.com" and password "Not@pwd1"
     Then Verify user is able to see toast message "Login failed. Please check your email and password"
+
+  @MK-004
+  Scenario: User login to Markie application unsuccessfully in case user enter wrong email format and valid password
+    Given Login page is opened
+    When Input information with specify email "wrongemailformat" and password "P@ssword1"
+    Then Verify user is able to see email error message "This field must be an email address"
