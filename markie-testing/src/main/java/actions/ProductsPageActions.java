@@ -13,8 +13,22 @@ public class ProductsPageActions {
     public void verifyDefaultFieldsAndFunctions() {
         productsPage.headerTitle().waitUntilVisible(Duration.ofMinutes(1));
         assertThat(productsPage.headerTitle().getWrappedElement().getText()).isEqualTo("Products");
-        assertThat(productsPage.buttonAddProduct().isPresent()).isTrue();
+        assertThat(productsPage.buttonHeaderAction().isPresent()).isTrue();
         assertThat(productsPage.inputKeyword().isPresent()).isTrue();
         assertThat(productsPage.buttonSearch().isPresent()).isTrue();
+    }
+
+    public void clickButtonHeaderAction() {
+        productsPage.buttonHeaderAction().click();
+    }
+
+    public void verifySuccessMessage(String msg) {
+        productsPage.successToast().waitUntilVisible(Duration.ofSeconds(30));
+        assertThat(productsPage.successToast().getText()).isEqualTo(msg);
+    }
+
+    public void verifyFirstProductName(String msg) {
+        productsPage.firstProductName().waitUntilVisible(Duration.ofSeconds(30));
+        assertThat(productsPage.firstProductName().getText()).isEqualTo(msg);
     }
 }
