@@ -12,7 +12,12 @@ public class AddProductPage extends UIInteractionSteps {
             select_category = By.xpath("//select[@data-testid=\"select-product-category\"]"),
             input_quantity = By.xpath("//input[@data-testid=\"input-product-quantity\"]"),
             input_brand = By.xpath("//input[@data-testid=\"input-product-brand\"]"),
-            input_price = By.xpath("//input[@data-testid=\"input-product-price\"]");
+            input_price = By.xpath("//input[@data-testid=\"input-product-price\"]"),
+            error_msg_name = By.xpath("//div[@data-testid=\"error-msg-product-name\"]"),
+            error_msg_category = By.xpath("//div[@data-testid=\"error-msg-category\"]"),
+            error_msg_quantity = By.xpath("//div[@data-testid=\"error-msg-quantity\"]"),
+            error_msg_brand = By.xpath("//div[@data-testid=\"error-msg-brand\"]"),
+            error_msg_price = By.xpath("//div[@data-testid=\"error-msg-price\"]");
 
     public IWebElement inputName() {
         return new WebElement($(input_name));
@@ -32,5 +37,25 @@ public class AddProductPage extends UIInteractionSteps {
 
     public IWebElement inputPrice() {
         return new WebElement($(input_price));
+    }
+
+    public IWebElement errorMessageName() {
+        return new WebElement($(error_msg_name));
+    }
+
+    public IWebElement errorMessageCategory() {
+        return new WebElement($(error_msg_category));
+    }
+
+    public IWebElement errorMessageQuantity() {
+        return new WebElement($(error_msg_quantity));
+    }
+
+    public IWebElement errorMessageBrand() {
+        return new WebElement($(error_msg_brand));
+    }
+
+    public IWebElement errorMessagePrice() {
+        return new WebElement($(error_msg_price));
     }
 }

@@ -14,7 +14,7 @@ public class ProductsPage extends UIInteractionSteps {
             input_keyword = By.xpath("//input[@data-testid=\"keyword-input\"]"),
             button_search = By.xpath("//button[@data-testid=\"search-button\"]"),
             success_toast = By.xpath("//div[@data-status=\"success\"]"),
-            first_product_name = By.xpath("//ul[@data-testid=\"product-list\"]/*[1]/p[@data-testid=\"product-name\"]");
+            first_product_name = By.xpath("//ul[@data-testid=\"product-list\"]/li[1]/p[@data-testid=\"product-name\"]");
 
     public IWebElement headerTitle() {
         return new WebElement($(header_title));
