@@ -31,3 +31,11 @@ Feature: User add new product
       | New  | Fruit    | 10       | New Brand | 1.99  |
     When Click on header action button
     Then Verify display product name error message "This field must have more than 8 characters"
+
+  @MK-104
+  Scenario: User add new product unsuccessfully in case user enter product name has not enough length
+    When Fill product form with data
+      | Name             | Category | Quantity | Brand | Price |
+      | New Test Product | Fruit    | 10       | New   | 1.99  |
+    When Click on header action button
+    Then Verify display product brand error message "This field must have more than 6 characters"
