@@ -26,4 +26,8 @@ public class LoginSteps {
         actions.verifyPasswordErrorMessage(msg);
     }
 
+    @Then("Verify user is able to see toast message {string}")
+    public void verify_user_is_able_to_see_toast_message(String msg) {
+        actions.verifyErrorToastMessage(msg);
+    }
 }

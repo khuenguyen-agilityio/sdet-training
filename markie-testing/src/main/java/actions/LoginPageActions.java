@@ -30,4 +30,9 @@ public class LoginPageActions {
         loginPage.errorMessagePassword().waitUntilVisible(Duration.ofSeconds(30));
         assertThat(loginPage.errorMessagePassword().getText()).isEqualTo(msg);
     }
+
+    public void verifyErrorToastMessage(String msg) {
+        loginPage.errorToast().waitUntilVisible(Duration.ofSeconds(30));
+        assertThat(loginPage.errorToast().getText()).isEqualTo(msg);
+    }
 }

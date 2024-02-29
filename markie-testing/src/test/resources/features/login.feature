@@ -13,3 +13,9 @@ Feature: User login to Markie application
     Given Login page is opened
     When Input information with specify email "" and password ""
     Then Verify user is able to see error message "This field must not be empty" on the page
+
+  @MK-003
+  Scenario: User login to Markie application unsuccessfully in case user enter invalid email and invalid password
+    Given Login page is opened
+    When Input information with specify email "wrongemail@gmail.com" and password "Not@pwd1"
+    Then Verify user is able to see toast message "Login failed. Please check your email and password"

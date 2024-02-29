@@ -12,7 +12,8 @@ public class LoginPage extends UIInteractionSteps {
             input_password = By.xpath("//input[@data-testid=\"password-input\"]"),
             button_login = By.xpath("//button[@data-testid=\"submit-button\"]"),
             error_msg_email = By.xpath("//div[@data-testid=\"error-msg-email\"]"),
-            error_msg_password = By.xpath("//div[@data-testid=\"error-msg-password\"]");
+            error_msg_password = By.xpath("//div[@data-testid=\"error-msg-password\"]"),
+            error_toast = By.xpath("//div[@data-status=\"error\"]");
 
     public IWebElement pageHeader() {
         return new WebElement($(page_header));
@@ -36,5 +37,9 @@ public class LoginPage extends UIInteractionSteps {
 
     public IWebElement errorMessagePassword() {
         return new WebElement($(error_msg_password));
+    }
+
+    public IWebElement errorToast() {
+        return new WebElement($(error_toast));
     }
 }
