@@ -35,4 +35,9 @@ public class LoginSteps {
     public void verify_user_is_able_to_see_email_error_message(String msg) {
         actions.verifyEmailErrorMessage(msg);
     }
+
+    @Then("Verify user is able to see password error message {string}")
+    public void verify_user_is_able_to_see_password_error_message(String msg) {
+        actions.verifyPasswordErrorMessage(msg);
+    }
 }

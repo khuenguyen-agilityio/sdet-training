@@ -6,8 +6,7 @@ Feature: User login to Markie application
     Given Login page is opened
     When Input information with specify email "khuenguyen2611@gmail.com" and password "P@ssword1"
     Then Verify user is able to see products page
-
-
+    
   @MK-002
   Scenario: User login to Markie application unsuccessfully in case user enter empty email and password
     Given Login page is opened
@@ -25,3 +24,9 @@ Feature: User login to Markie application
     Given Login page is opened
     When Input information with specify email "wrongemailformat" and password "P@ssword1"
     Then Verify user is able to see email error message "This field must be an email address"
+
+  @MK-005
+  Scenario: User login to Markie application unsuccessfully in case user enter valid email and wrong password format
+    Given Login page is opened
+    When Input information with specify email "khuenguyen2611@gmail.com" and password "Password"
+    Then Verify user is able to see password error message "This field must contain at least 8 characters and contain lowercase letter, uppercase letter, digit special character"
