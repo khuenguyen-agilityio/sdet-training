@@ -3,12 +3,15 @@ package actions;
 import models.Product;
 import pages.AddProductPage;
 
+import java.time.Duration;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AddProductPageActions {
     private AddProductPage addProductPage;
 
     public void inputProductData(Product product) {
+        addProductPage.inputName().waitUntilVisible(Duration.ofSeconds(30));
         addProductPage.inputName().getWrappedElement().sendKeys(product.getName());
         addProductPage.selectCategory().selectByVisibleText(product.getCategory());
         addProductPage.inputQuantity().getWrappedElement().sendKeys(String.valueOf(product.getQuantity()));
