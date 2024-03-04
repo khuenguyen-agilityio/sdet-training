@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
         snippets = CucumberOptions.SnippetType.UNDERSCORE,
         stepNotifications = true,
         dryRun = false,
-        tags = "@Markie"
+        tags = "@SearchProduct"
 )
 public class Runner {
 }

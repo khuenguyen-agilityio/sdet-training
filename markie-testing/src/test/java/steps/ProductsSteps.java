@@ -29,4 +29,25 @@ public class ProductsSteps {
         actions.verifyFirstProductName(msg);
     }
 
+    @When("Select category {string} in Search with Category form control")
+    public void select_category_in_search_with_category_form_control(String category) {
+        actions.selectCategory(category);
+    }
+
+    @When("Input search keyword {string} in Search with form control")
+    public void input_search_keyword_in_search_with_form_control(String keyword) {
+        actions.inputSearchKeyword(keyword);
+    }
+
+    @When("Click on Search button")
+    public void click_on_search_button() {
+        actions.clickSearchButton();
+    }
+
+    @Then("Verify search products have {string} category and name contains keyword {string}")
+    public void verify_search_products_have_category_and_name_contains_keyword(String category, String keyword) {
+        actions.verifyListProductCategory(category);
+        actions.verifyListProductName(keyword);
+    }
+
 }

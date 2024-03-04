@@ -2,6 +2,7 @@ package pages;
 
 import helpers.IWebElement;
 import helpers.WebElement;
+import net.serenitybdd.core.pages.ListOfWebElementFacades;
 import net.serenitybdd.core.steps.UIInteractionSteps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
@@ -14,7 +15,10 @@ public class ProductsPage extends UIInteractionSteps {
             input_keyword = By.xpath("//input[@data-testid=\"keyword-input\"]"),
             button_search = By.xpath("//button[@data-testid=\"search-button\"]"),
             success_toast = By.xpath("//div[@data-status=\"success\"]"),
-            first_product_name = By.xpath("//ul[@data-testid=\"product-list\"]/li[1]/p[@data-testid=\"product-name\"]");
+            loading_spinner = By.xpath("//div[@data-testid=\"loading-spinner\"]"),
+            first_product_name = By.xpath("//ul[@data-testid=\"product-list\"]/li[1]/p[@data-testid=\"product-name\"]"),
+            list_product_name = By.xpath("//ul[@data-testid=\"product-list\"]/li/p[@data-testid=\"product-name\"]"),
+            list_product_category = By.xpath("//ul[@data-testid=\"product-list\"]/li/p[@data-testid=\"product-category\"]");
 
     public IWebElement headerTitle() {
         return new WebElement($(header_title));
@@ -40,7 +44,19 @@ public class ProductsPage extends UIInteractionSteps {
         return new WebElement($(success_toast));
     }
 
+    public IWebElement loadingSpinner() {
+        return new WebElement($(loading_spinner));
+    }
+
     public IWebElement firstProductName() {
         return new WebElement($(first_product_name));
+    }
+
+    public ListOfWebElementFacades listProductName() {
+        return ($$(list_product_name));
+    }
+
+    public ListOfWebElementFacades listProductCategory() {
+        return ($$(list_product_category));
     }
 }
