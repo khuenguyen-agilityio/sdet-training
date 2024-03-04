@@ -18,7 +18,9 @@ public class ProductsPage extends UIInteractionSteps {
             loading_spinner = By.xpath("//div[@data-testid=\"loading-spinner\"]"),
             first_product_name = By.xpath("//ul[@data-testid=\"product-list\"]/li[1]/p[@data-testid=\"product-name\"]"),
             list_product_name = By.xpath("//ul[@data-testid=\"product-list\"]/li/p[@data-testid=\"product-name\"]"),
-            list_product_category = By.xpath("//ul[@data-testid=\"product-list\"]/li/p[@data-testid=\"product-category\"]");
+            list_product_category = By.xpath("//ul[@data-testid=\"product-list\"]/li/p[@data-testid=\"product-category\"]"),
+            nothing_found = By.xpath("//div[@data-testid=\"nothing-found\"]"),
+            nothing_found_message = By.xpath("//div[@data-testid=\"nothing-found\"]/p");
 
     public IWebElement headerTitle() {
         return new WebElement($(header_title));
@@ -58,5 +60,13 @@ public class ProductsPage extends UIInteractionSteps {
 
     public ListOfWebElementFacades listProductCategory() {
         return ($$(list_product_category));
+    }
+
+    public IWebElement nothingFound() {
+        return new WebElement($(nothing_found));
+    }
+
+    public IWebElement nothingFoundMessage() {
+        return new WebElement($(nothing_found_message));
     }
 }

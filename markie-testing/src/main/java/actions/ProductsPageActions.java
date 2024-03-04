@@ -58,4 +58,10 @@ public class ProductsPageActions {
             productsPage.listProductName()
                     .forEach(element -> assertThat(element.getWrappedElement().getText()).containsIgnoringCase(name));
     }
+
+    public void verifyDisplayNoProductFound() {
+        productsPage.loadingSpinner().waitUntilNotVisible(Duration.ofSeconds(30));
+        assertThat(productsPage.nothingFound().isPresent()).isTrue();
+        assertThat(productsPage.nothingFoundMessage().getWrappedElement().getText()).isEqualTo("No Product Found!!!");
+    }
 }

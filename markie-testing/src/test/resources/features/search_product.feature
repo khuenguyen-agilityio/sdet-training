@@ -17,3 +17,10 @@ Feature: User search for product
       | "Dairy"  | "cheese" |
       | "Dairy"  | ""       |
       | ""       | "cheese" |
+
+  @MK-204
+  Scenario: Display no product found when no product has been founded
+    When Select category "Fruit" in Search with Category form control
+    And Input search keyword "cheese" in Search with form control
+    And Click on Search button
+    Then Verify display no product found

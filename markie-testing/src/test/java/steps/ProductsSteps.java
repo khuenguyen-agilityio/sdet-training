@@ -50,4 +50,9 @@ public class ProductsSteps {
         actions.verifyListProductName(keyword);
     }
 
+    @Then("Verify display no product found")
+    public void verify_display_no_product_found() {
+        actions.verifyDisplayNoProductFound();
+    }
+
 }
