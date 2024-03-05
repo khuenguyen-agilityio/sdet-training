@@ -6,7 +6,7 @@ Feature: User search for product
     And Input information with specify email "khuenguyen2611@gmail.com" and password "P@ssword1"
 
   @201 @202 @203
-  Scenario Outline: User search for product with Category and Name successfully
+  Scenario Outline: User search for product with Category <category> and Keyword <keyword> successfully
     When Select category <category> in Search with Category form control
     And Input search keyword <keyword> in Search with form control
     And Click on Search for product button on product page
