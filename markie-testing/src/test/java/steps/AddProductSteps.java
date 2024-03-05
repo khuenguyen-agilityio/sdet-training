@@ -4,6 +4,7 @@ import actions.AddProductPageActions;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import models.Product;
+import models.ProductFormError;
 import net.serenitybdd.annotations.Steps;
 
 import java.util.ArrayList;
@@ -12,38 +13,24 @@ import java.util.Map;
 
 public class AddProductSteps {
     @Steps
-    private AddProductPageActions actions;
+    private AddProductPageActions productPageActions;
 
     @When("Fill product form with data")
     public void fill_product_form_with_data(List<Map<String, String>> data) {
         List<Product> products = new ArrayList<>();
         data.forEach(row -> products.add(new Product(row)));
-        products.forEach(product -> actions.inputProductData(product));
+        products.forEach(product -> productPageActions.inputProductData(product));
     }
 
-    @Then("Verify display product name error message {string}")
-    public void verify_display_product_name_error_message(String msg) {
-        actions.verifyProductNameErrorMessage(msg);
+    @Then("Verify display product error message")
+    public void verify_display_product_error_message(List<Map<String, String>> data) {
+        List<ProductFormError> errors = new ArrayList<>();
+        data.forEach(row -> errors.add(new ProductFormError(row)));
+        errors.forEach(error -> productPageActions.verifyProductFormErrorMessage(error));
     }
 
-    @Then("Verify display product category error message {string}")
-    public void verify_display_product_category_error_message(String msg) {
-        actions.verifyProductCategoryErrorMessage(msg);
+    @When("Click on save product button on product page")
+    public void click_on_save_product_button_on_product_page() {
+        productPageActions.clickSaveProductButton();
     }
-
-    @Then("Verify display product quantity error message {string}")
-    public void verify_display_product_quantity_error_message(String msg) {
-        actions.verifyProductQuantityErrorMessage(msg);
-    }
-
-    @Then("Verify display product brand error message {string}")
-    public void verify_display_product_brand_error_message(String msg) {
-        actions.verifyProductBrandErrorMessage(msg);
-    }
-
-    @Then("Verify display product price error message {string}")
-    public void verify_display_product_price_error_message(String msg) {
-        actions.verifyProductPriceErrorMessage(msg);
-    }
-
 }

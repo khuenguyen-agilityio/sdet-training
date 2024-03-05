@@ -5,11 +5,11 @@ Feature: User search for product
     Given Login page is opened
     And Input information with specify email "khuenguyen2611@gmail.com" and password "P@ssword1"
 
-  @MK-201 @MK-202 @MK-203
+  @201 @202 @203
   Scenario Outline: User search for product with Category and Name successfully
     When Select category <category> in Search with Category form control
     And Input search keyword <keyword> in Search with form control
-    And Click on Search button
+    And Click on Search for product button on product page
     Then Verify search products have <category> category and name contains keyword <keyword>
 
     Examples:
@@ -18,9 +18,9 @@ Feature: User search for product
       | "Dairy"  | ""       |
       | ""       | "cheese" |
 
-  @MK-204
+  @204
   Scenario: Display no product found when no product has been founded
     When Select category "Fruit" in Search with Category form control
     And Input search keyword "cheese" in Search with form control
-    And Click on Search button
+    And Click on Search for product button on product page
     Then Verify display no product found

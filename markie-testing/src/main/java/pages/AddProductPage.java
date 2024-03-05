@@ -8,16 +8,17 @@ import org.openqa.selenium.support.ui.Select;
 
 public class AddProductPage extends UIInteractionSteps {
     private final By
-            input_name = By.xpath("//input[@data-testid=\"input-product-name\"]"),
-            select_category = By.xpath("//select[@data-testid=\"select-product-category\"]"),
-            input_quantity = By.xpath("//input[@data-testid=\"input-product-quantity\"]"),
-            input_brand = By.xpath("//input[@data-testid=\"input-product-brand\"]"),
-            input_price = By.xpath("//input[@data-testid=\"input-product-price\"]"),
-            error_msg_name = By.xpath("//div[@data-testid=\"error-msg-product-name\"]"),
-            error_msg_category = By.xpath("//div[@data-testid=\"error-msg-category\"]"),
-            error_msg_quantity = By.xpath("//div[@data-testid=\"error-msg-quantity\"]"),
-            error_msg_brand = By.xpath("//div[@data-testid=\"error-msg-brand\"]"),
-            error_msg_price = By.xpath("//div[@data-testid=\"error-msg-price\"]");
+            input_name = By.xpath("//input[@data-testid='input-product-name']"),
+            select_category = By.xpath("//select[@data-testid='select-product-category']"),
+            input_quantity = By.xpath("//input[@data-testid='input-product-quantity']"),
+            input_brand = By.xpath("//input[@data-testid='input-product-brand']"),
+            input_price = By.xpath("//input[@data-testid='input-product-price']"),
+            button_header_action = By.xpath("//button[@data-testid='header-action-button']"),
+            error_msg_name = By.xpath("//div[@data-testid='error-msg-product-name']"),
+            error_msg_category = By.xpath("//div[@data-testid='error-msg-category']"),
+            error_msg_quantity = By.xpath("//div[@data-testid='error-msg-quantity']"),
+            error_msg_brand = By.xpath("//div[@data-testid='error-msg-brand']"),
+            error_msg_price = By.xpath("//div[@data-testid='error-msg-price']");
 
     public IWebElement inputName() {
         return new WebElement($(input_name));
@@ -37,6 +38,10 @@ public class AddProductPage extends UIInteractionSteps {
 
     public IWebElement inputPrice() {
         return new WebElement($(input_price));
+    }
+
+    public IWebElement buttonSaveProduct() {
+        return new WebElement($(button_header_action));
     }
 
     public IWebElement errorMessageName() {

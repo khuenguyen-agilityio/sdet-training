@@ -1,11 +1,11 @@
 package actions;
 
 import models.Product;
+import models.ProductFormError;
+import org.assertj.core.api.SoftAssertions;
 import pages.AddProductPage;
 
 import java.time.Duration;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class AddProductPageActions {
     private AddProductPage addProductPage;
@@ -19,23 +19,27 @@ public class AddProductPageActions {
         addProductPage.inputPrice().getWrappedElement().sendKeys(String.valueOf(product.getPrice()));
     }
 
-    public void verifyProductNameErrorMessage(String msg) {
-        assertThat(addProductPage.errorMessageName().getWrappedElement().getText()).isEqualTo(msg);
+    public void clickSaveProductButton() {
+        addProductPage.buttonSaveProduct().waitUntilClickable(Duration.ofSeconds(30));
+        addProductPage.buttonSaveProduct().click();
     }
 
-    public void verifyProductCategoryErrorMessage(String msg) {
-        assertThat(addProductPage.errorMessageCategory().getWrappedElement().getText()).isEqualTo(msg);
-    }
+    public void verifyProductFormErrorMessage(ProductFormError error) {
+        SoftAssertions assertions = new SoftAssertions();
+        if (!error.getFieldName().equals(""))
+            assertions.assertThat(addProductPage.errorMessageName().getWrappedElement().getText()).isEqualTo(error.getFieldName());
 
-    public void verifyProductQuantityErrorMessage(String msg) {
-        assertThat(addProductPage.errorMessageQuantity().getWrappedElement().getText()).isEqualTo(msg);
-    }
+        if (!error.getFieldCategory().equals(""))
+            assertions.assertThat(addProductPage.errorMessageCategory().getWrappedElement().getText()).isEqualTo(error.getFieldCategory());
 
-    public void verifyProductBrandErrorMessage(String msg) {
-        assertThat(addProductPage.errorMessageBrand().getWrappedElement().getText()).isEqualTo(msg);
-    }
+        if (!error.getFieldQuantity().equals(""))
+            assertions.assertThat(addProductPage.errorMessageQuantity().getWrappedElement().getText()).isEqualTo(error.getFieldQuantity());
 
-    public void verifyProductPriceErrorMessage(String msg) {
-        assertThat(addProductPage.errorMessagePrice().getWrappedElement().getText()).isEqualTo(msg);
+        if (!error.getFieldBrand().equals(""))
+            assertions.assertThat(addProductPage.errorMessageBrand().getWrappedElement().getText()).isEqualTo(error.getFieldBrand());
+
+        if (!error.getFieldPrice().equals(""))
+            assertions.assertThat(addProductPage.errorMessagePrice().getWrappedElement().getText()).isEqualTo(error.getFieldPrice());
+        assertions.assertAll();
     }
 }
