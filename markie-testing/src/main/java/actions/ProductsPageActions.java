@@ -1,11 +1,13 @@
 package actions;
 
+import helpers.Storage;
 import models.Product;
 import org.assertj.core.api.SoftAssertions;
 import pages.ProductsPage;
 
 import java.time.Duration;
 
+import static helpers.StorageKey.NEW_PRODUCT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
@@ -43,13 +45,14 @@ public class ProductsPageActions {
         productsPage.buttonSearch().click();
     }
 
-    public void verifyNewProduct(Product product) {
+    public void verifyNewProduct() {
         productsPage.loadingSpinner().waitUntilNotVisible(Duration.ofSeconds(30));
+        Product product = (Product) Storage.getStorage().getObject(NEW_PRODUCT);
         SoftAssertions assertions = new SoftAssertions();
-        assertions.assertThat(productsPage.newProductName().getWrappedElement().getText()).isEqualTo(product.getName());
-        assertions.assertThat(productsPage.newProductCategory().getWrappedElement().getText()).isEqualTo(product.getCategory());
-        assertions.assertThat(Integer.parseInt(productsPage.newProductQuantity().getWrappedElement().getText())).isEqualTo(product.getQuantity());
-        assertions.assertThat(productsPage.newProductPrice().getWrappedElement().getText()).contains(String.valueOf(product.getPrice()));
+        assertions.assertThat(productsPage.newProductName(product.getName()).getWrappedElement().getText()).isEqualTo(product.getName());
+        assertions.assertThat(productsPage.newProductCategory(product.getName()).getWrappedElement().getText()).isEqualTo(product.getCategory());
+        assertions.assertThat(Integer.parseInt(productsPage.newProductQuantity(product.getName()).getWrappedElement().getText())).isEqualTo(product.getQuantity());
+        assertions.assertThat(productsPage.newProductPrice(product.getName()).getWrappedElement().getText()).contains(String.valueOf(product.getPrice()));
         assertions.assertAll();
     }
 
@@ -74,9 +77,10 @@ public class ProductsPageActions {
     }
 
     public void deleteNewProduct() {
-        productsPage.buttonProductActions().click();
-        productsPage.buttonDeleteNewProduct().waitUntilVisible(Duration.ofSeconds(30));
-        productsPage.buttonDeleteNewProduct().click();
+        Product product = (Product) Storage.getStorage().getObject(NEW_PRODUCT);
+        productsPage.buttonProductActions(product.getName()).click();
+        productsPage.buttonDeleteNewProduct(product.getName()).waitUntilVisible(Duration.ofSeconds(30));
+        productsPage.buttonDeleteNewProduct(product.getName()).click();
         productsPage.buttonConfirmDeleteProduct().waitUntilVisible(Duration.ofSeconds(30));
         productsPage.buttonConfirmDeleteProduct().click();
         productsPage.successToast().waitUntilVisible(Duration.ofSeconds(30));

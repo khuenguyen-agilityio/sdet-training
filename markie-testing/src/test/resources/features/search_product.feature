@@ -11,7 +11,6 @@ Feature: User search for product
     And The user input search keyword <keyword> in Search with form control
     And The user click on Search for product button on product page
     Then Verify search products have <category> category and name contains keyword <keyword>
-
     Examples:
       | category | keyword  |
       | "Dairy"  | "cheese" |

@@ -1,11 +1,14 @@
 package actions;
 
+import helpers.Storage;
 import models.Product;
 import models.ProductFormError;
 import org.assertj.core.api.SoftAssertions;
 import pages.AddProductPage;
 
 import java.time.Duration;
+
+import static helpers.StorageKey.NEW_PRODUCT;
 
 public class AddProductPageActions {
     private AddProductPage addProductPage;
@@ -17,6 +20,7 @@ public class AddProductPageActions {
         addProductPage.inputQuantity().getWrappedElement().sendKeys(String.valueOf(product.getQuantity()));
         addProductPage.inputBrand().getWrappedElement().sendKeys(product.getBrand());
         addProductPage.inputPrice().getWrappedElement().sendKeys(String.valueOf(product.getPrice()));
+        Storage.getStorage().saveObjectValue(NEW_PRODUCT, product);
     }
 
     public void clickSaveProductButton() {

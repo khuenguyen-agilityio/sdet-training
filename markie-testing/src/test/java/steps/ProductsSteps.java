@@ -3,12 +3,7 @@ package steps;
 import actions.ProductsPageActions;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import models.Product;
 import net.serenitybdd.annotations.Steps;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public class ProductsSteps {
     @Steps
@@ -30,10 +25,8 @@ public class ProductsSteps {
     }
 
     @Then("Verify new product has been created")
-    public void verify_new_product_has_been_created(List<Map<String, String>> data) {
-        List<Product> products = new ArrayList<>();
-        data.forEach(row -> products.add(new Product(row)));
-        products.forEach(product -> productsPageActions.verifyNewProduct(product));
+    public void verify_new_product_has_been_created() {
+        productsPageActions.verifyNewProduct();
     }
 
     @When("The user select category {string} in Search with Category form control")

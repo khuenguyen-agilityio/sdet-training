@@ -14,8 +14,6 @@ Feature: User add new product
     And The user click on save product button on product page
     Then Verify display success toast message "Add product successfully"
     And Verify new product has been created
-      | Name                 | Category | Quantity | Brand     | Price |
-      | New Product Test 101 | Fruit    | 10       | New Brand | 1.99  |
 
   @102
   Scenario: User add new product unsuccessfully in case user enter empty information
