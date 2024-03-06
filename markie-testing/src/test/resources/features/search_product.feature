@@ -14,8 +14,8 @@ Feature: User search for product
     Examples:
       | category | keyword  |
       | "Dairy"  | "cheese" |
-#      | "Dairy"  | ""       |
-#      | ""       | "cheese" |
+      | "Dairy"  | ""       |
+      | ""       | "cheese" |
 
   @204
   Scenario: Display no product found when no product has been founded
