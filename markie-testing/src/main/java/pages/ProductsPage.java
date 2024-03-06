@@ -3,11 +3,11 @@ package pages;
 import helpers.IWebElement;
 import helpers.WebElement;
 import net.serenitybdd.core.pages.ListOfWebElementFacades;
-import net.serenitybdd.core.steps.UIInteractionSteps;
+import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
-public class ProductsPage extends UIInteractionSteps {
+public class ProductsPage extends PageObject {
     private final By
             header_title = By.xpath("//h1[@data-testid='header-title']"),
             button_header_action = By.xpath("//button[@data-testid='header-action-button']"),

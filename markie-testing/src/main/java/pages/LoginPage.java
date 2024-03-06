@@ -2,10 +2,10 @@ package pages;
 
 import helpers.IWebElement;
 import helpers.WebElement;
-import net.serenitybdd.core.steps.UIInteractionSteps;
+import net.serenitybdd.core.pages.PageObject;
 import org.openqa.selenium.By;
 
-public class LoginPage extends UIInteractionSteps {
+public class LoginPage extends PageObject {
     private final By
             page_header = By.xpath("//h1[normalize-space()='Welcome to Markie']"),
             input_email = By.xpath("//input[@data-testid='email-input']"),

@@ -30,19 +30,19 @@ public class AddProductPageActions {
 
     public void verifyProductFormErrorMessage(ProductFormError error) {
         SoftAssertions assertions = new SoftAssertions();
-        if (!error.getFieldName().equals(""))
+        if (!error.getFieldName().isEmpty())
             assertions.assertThat(addProductPage.errorMessageName().getWrappedElement().getText()).isEqualTo(error.getFieldName());
 
-        if (!error.getFieldCategory().equals(""))
+        if (!error.getFieldCategory().isEmpty())
             assertions.assertThat(addProductPage.errorMessageCategory().getWrappedElement().getText()).isEqualTo(error.getFieldCategory());
 
-        if (!error.getFieldQuantity().equals(""))
+        if (!error.getFieldQuantity().isEmpty())
             assertions.assertThat(addProductPage.errorMessageQuantity().getWrappedElement().getText()).isEqualTo(error.getFieldQuantity());
 
-        if (!error.getFieldBrand().equals(""))
+        if (!error.getFieldBrand().isEmpty())
             assertions.assertThat(addProductPage.errorMessageBrand().getWrappedElement().getText()).isEqualTo(error.getFieldBrand());
 
-        if (!error.getFieldPrice().equals(""))
+        if (!error.getFieldPrice().isEmpty())
             assertions.assertThat(addProductPage.errorMessagePrice().getWrappedElement().getText()).isEqualTo(error.getFieldPrice());
         assertions.assertAll();
     }

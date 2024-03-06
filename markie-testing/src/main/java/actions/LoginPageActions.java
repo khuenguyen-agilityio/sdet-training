@@ -25,12 +25,12 @@ public class LoginPageActions {
     public void verifyLoginErrorMessage(String fieldEmail, String fieldPassword) {
         SoftAssertions assertions = new SoftAssertions();
 
-        if (!fieldEmail.equals("")) {
+        if (!fieldEmail.isEmpty()) {
             loginPage.errorMessageEmail().waitUntilVisible(Duration.ofSeconds(30));
             assertions.assertThat(loginPage.errorMessageEmail().getText()).isEqualTo(fieldEmail);
         }
 
-        if (!fieldPassword.equals("")) {
+        if (!fieldPassword.isEmpty()) {
             loginPage.errorMessagePassword().waitUntilVisible(Duration.ofSeconds(30));
             assertions.assertThat(loginPage.errorMessagePassword().getText()).isEqualTo(fieldPassword);
         }

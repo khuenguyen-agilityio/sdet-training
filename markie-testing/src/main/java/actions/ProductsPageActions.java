@@ -60,10 +60,10 @@ public class ProductsPageActions {
         productsPage.loadingSpinner().waitUntilNotVisible(Duration.ofSeconds(30));
         SoftAssertions assertions = new SoftAssertions();
 
-        if (!category.equals(""))
+        if (!category.isEmpty())
             productsPage.listProductCategory()
                     .forEach(element -> assertions.assertThat(element.getWrappedElement().getText()).isEqualTo(category));
-        if (!name.equals(""))
+        if (!name.isEmpty())
             productsPage.listProductName()
                     .forEach(element -> assertions.assertThat(element.getWrappedElement().getText()).containsIgnoringCase(name));
 

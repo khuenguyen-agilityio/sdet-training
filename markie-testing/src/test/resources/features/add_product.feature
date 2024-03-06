@@ -8,10 +8,10 @@ Feature: User add new product
 
   @101 @delete_new_test_product
   Scenario: User add new product successfully
-    When The user fill product form with data
+    And The user fill product form with data
       | Name                 | Category | Quantity | Brand     | Price |
       | New Product Test 101 | Fruit    | 10       | New Brand | 1.99  |
-    And The user click on save product button on product page
+    When The user click on save product button on product page
     Then Verify display success toast message "Add product successfully"
     And Verify new product has been created
 
@@ -24,7 +24,7 @@ Feature: User add new product
 
   @103
   Scenario: User add new product unsuccessfully in case user enter product name has not enough length
-    When The user fill product form with data
+    And The user fill product form with data
       | Name | Category | Quantity | Brand     | Price |
       | New  | Fruit    | 10       | New Brand | 1.99  |
     When The user click on save product button on product page
@@ -33,8 +33,8 @@ Feature: User add new product
       | This field must have more than 8 characters |
 
   @104
-  Scenario: User add new product unsuccessfully in case user enter product name has not enough length
-    When The user fill product form with data
+  Scenario: User add new product unsuccessfully in case user enter product brand has not enough length
+    And The user fill product form with data
       | Name             | Category | Quantity | Brand | Price |
       | New Test Product | Fruit    | 10       | New   | 1.99  |
     When The user click on save product button on product page
