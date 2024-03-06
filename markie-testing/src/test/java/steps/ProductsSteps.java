@@ -19,7 +19,7 @@ public class ProductsSteps {
         productsPageActions.verifyDefaultFieldsAndFunctions();
     }
 
-    @When("Click on button add product in the top right corner")
+    @When("The user click on button add product in the top right corner")
     public void click_on_button_add_product_in_the_top_right_corner() {
         productsPageActions.clickButtonAddProduct();
     }
@@ -36,17 +36,17 @@ public class ProductsSteps {
         products.forEach(product -> productsPageActions.verifyNewProduct(product));
     }
 
-    @When("Select category {string} in Search with Category form control")
+    @When("The user select category {string} in Search with Category form control")
     public void select_category_in_search_with_category_form_control(String category) {
         productsPageActions.selectCategory(category);
     }
 
-    @When("Input search keyword {string} in Search with form control")
+    @When("The user input search keyword {string} in Search with form control")
     public void input_search_keyword_in_search_with_form_control(String keyword) {
         productsPageActions.inputSearchKeyword(keyword);
     }
 
-    @When("Click on Search for product button on product page")
+    @When("The user click on Search for product button on product page")
     public void click_on_search_button() {
         productsPageActions.clickSearchButton();
     }
@@ -56,7 +56,7 @@ public class ProductsSteps {
         productsPageActions.verifyListProductCategoryAndName(category, keyword);
     }
 
-    @Then("Verify display no product found")
+    @Then("Verify user can see no product found")
     public void verify_display_no_product_found() {
         productsPageActions.verifyDisplayNoProductFound();
     }

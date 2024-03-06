@@ -10,12 +10,12 @@ public class LoginSteps {
     @Steps
     private LoginPageActions loginPageActions;
 
-    @Given("Login page is opened")
+    @Given("The user is on login page")
     public void login_page_is_opened() {
         loginPageActions.openLoginPage();
     }
 
-    @When("Input information with specify email {string} and password {string}")
+    @When("The user input information with specify email {string} and password {string}")
     public void input_information_with_specify_email_and_password(String email, String password) {
         loginPageActions.inputEmailAndPassword(email, password);
     }

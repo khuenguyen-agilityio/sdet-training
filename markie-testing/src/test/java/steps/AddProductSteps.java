@@ -15,21 +15,21 @@ public class AddProductSteps {
     @Steps
     private AddProductPageActions productPageActions;
 
-    @When("Fill product form with data")
+    @When("The user fill product form with data")
     public void fill_product_form_with_data(List<Map<String, String>> data) {
         List<Product> products = new ArrayList<>();
         data.forEach(row -> products.add(new Product(row)));
         products.forEach(product -> productPageActions.inputProductData(product));
     }
 
-    @Then("Verify display product error message")
+    @Then("Verify user can see error message on input field")
     public void verify_display_product_error_message(List<Map<String, String>> data) {
         List<ProductFormError> errors = new ArrayList<>();
         data.forEach(row -> errors.add(new ProductFormError(row)));
         errors.forEach(error -> productPageActions.verifyProductFormErrorMessage(error));
     }
 
-    @When("Click on save product button on product page")
+    @When("The user click on save product button on product page")
     public void click_on_save_product_button_on_product_page() {
         productPageActions.clickSaveProductButton();
     }
