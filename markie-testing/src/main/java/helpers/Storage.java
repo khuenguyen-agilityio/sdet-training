@@ -17,11 +17,10 @@ import java.util.Map;
 @NoArgsConstructor
 public class Storage {
 
+    private static ThreadLocal<Storage> storage = new ThreadLocal<>();
     //***general***
     private Map<String, Object> mapStorage;
     private Map<String, Response> savedResponse;
-
-    private static ThreadLocal<Storage> storage = new ThreadLocal<>();
 
     public static Storage getStorage() {
         return storage.get();
