@@ -1,6 +1,5 @@
 package helpers;
 
-import io.restassured.response.Response;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,9 +17,7 @@ import java.util.Map;
 public class Storage {
 
     private static ThreadLocal<Storage> storage = new ThreadLocal<>();
-    //***general***
     private Map<String, Object> mapStorage;
-    private Map<String, Response> savedResponse;
 
     public static Storage getStorage() {
         return storage.get();

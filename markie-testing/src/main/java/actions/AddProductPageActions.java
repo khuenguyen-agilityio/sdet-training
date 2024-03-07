@@ -8,7 +8,7 @@ import pages.AddProductPage;
 
 import java.time.Duration;
 
-import static helpers.StorageKey.NEW_PRODUCT;
+import static utils.StorageKey.NEW_PRODUCT;
 
 public class AddProductPageActions {
     private AddProductPage addProductPage;
