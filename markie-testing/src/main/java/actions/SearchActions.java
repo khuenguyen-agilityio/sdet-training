@@ -4,7 +4,7 @@ import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.di.SerenityInfrastructure;
 import net.serenitybdd.model.environment.EnvironmentSpecificConfiguration;
 import net.thucydides.model.util.EnvironmentVariables;
-import contants.ISerenityConfigConstants;
+import contants.SerenityConfigConstants;
 import org.assertj.core.api.SoftAssertions;
 import pages.SearchPage;
 
@@ -15,12 +15,12 @@ public class SearchActions {
 
     public void navigateToPage() {
         EnvironmentVariables environmentVariables = SerenityInfrastructure.getEnvironmentVariables();
-        String url = EnvironmentSpecificConfiguration.from(environmentVariables).getProperty(ISerenityConfigConstants.BASEURL);
+        String url = EnvironmentSpecificConfiguration.from(environmentVariables).getProperty(SerenityConfigConstants.BASEURL);
         Serenity.getDriver().get(url);
     }
 
     public void searchFor(String term) {
-        searchPage.searchInput().getWrappedElement().typeAndEnter(term);
+        searchPage.searchInput().typeAndEnter(term);
     }
 
     public void verifyUserSeeSearchResult(String term) {

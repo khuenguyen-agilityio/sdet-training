@@ -1,8 +1,8 @@
 package pages;
 
 import net.serenitybdd.core.pages.PageObject;
-import object_behaviors.implementation.WebElement;
-import object_behaviors.rules.IWebElement;
+import object_behaviors.implementation.WebElementImpl;
+import object_behaviors.rules.WebElement;
 import org.openqa.selenium.By;
 
 public class SearchPage extends PageObject {
@@ -10,15 +10,15 @@ public class SearchPage extends PageObject {
         search_result = By.xpath("//article"),
         search_form_input = By.id("search_form_input");
 
-    public IWebElement searchInput() {
-        return new WebElement($(search_input));
+    public WebElement searchInput() {
+        return new WebElementImpl($(search_input));
     }
 
-    public IWebElement searchResult() {
-        return new WebElement($(search_result));
+    public WebElement searchResult() {
+        return new WebElementImpl($(search_result));
     }
 
-    public IWebElement searchFormInput() {
-        return new WebElement($(search_form_input));
+    public WebElement searchFormInput() {
+        return new WebElementImpl($(search_form_input));
     }
 }

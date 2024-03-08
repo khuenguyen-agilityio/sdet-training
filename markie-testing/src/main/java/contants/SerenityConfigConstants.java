@@ -1,5 +1,5 @@
 package contants;
 
-public interface ISerenityConfigConstants {
+public interface SerenityConfigConstants {
     String BASEURL = "base.url";
 }
