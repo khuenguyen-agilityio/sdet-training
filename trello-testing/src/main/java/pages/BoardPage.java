@@ -11,7 +11,8 @@ public class BoardPage extends PageObject {
             button_attachment = By.xpath("//div[@class='js-new-card-attachment-picker-react-root-for-sidebar']"),
             button_checklist = By.xpath("//div[@class='js-add-checklist-menu']"),
             input_label_title = By.xpath("//section[@data-testid='labels-popover-create-label-screen']/descendant::input[@type='text']"),
-            card_label = By.xpath("//span[@data-testid='card-label']");
+            card_label = By.xpath("//span[@data-testid='card-label']"),
+            button_remove_color = By.xpath("//button[@type='button' and contains(text(), 'Remove color')]");
 
     private final String button_labels_action = "//button[@type='button' and text() = '%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button";
@@ -49,5 +50,9 @@ public class BoardPage extends PageObject {
     public WebElement buttonEditLabel(String label) {
         String formattedElement = String.format(button_edit_label, label);
         return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement buttonRemoveColor() {
+        return new WebElementImpl($(button_remove_color));
     }
 }

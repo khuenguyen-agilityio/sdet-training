@@ -15,8 +15,30 @@ public class BoardPageActions {
      * @param title
      */
     public void clickCardWithTitle(String title) {
-        // wait for the card with given title visible and click it
         boardPage.testCard(title).getWrappedElement().waitUntilVisible().click();
+    }
+
+    /**
+     * Click on Label button in the right label sidebar
+     */
+    public void clickLabelButton() {
+        boardPage.buttonLabels().getWrappedElement().waitUntilVisible().click();
+    }
+
+    /**
+     * Click on button label action with given text
+     *
+     * @param text
+     */
+    public void clickButtonLabelAction(String text) {
+        boardPage.buttonLabelsAction(text).click();
+    }
+
+    /**
+     * Click on button remove color
+     */
+    public void clickButtonRemoveColor() {
+        boardPage.buttonRemoveColor().click();
     }
 
     /**
@@ -25,8 +47,6 @@ public class BoardPageActions {
      * @param label
      */
     public void createNewCardLabel(String label) {
-        boardPage.buttonLabels().getWrappedElement().waitUntilVisible().click();
-        boardPage.buttonLabelsAction("Create a new label").click();
         boardPage.inputLabelTitle().getWrappedElement().sendKeys(label);
         boardPage.buttonLabelsAction("Create").click();
 
@@ -39,6 +59,15 @@ public class BoardPageActions {
     public void verifyCardLabelTitle() {
         String label = (String) Storage.getStorage().getObject(TEST_LABEL);
         assertThat(boardPage.cardLabel().getWrappedElement().getText()).isEqualTo(label);
+    }
+
+    /**
+     * Verify the card with given title is disabled
+     *
+     * @param title
+     */
+    public void verifyButtonLabelsActionIsDisabled(String title) {
+        assertThat(boardPage.buttonLabelsAction(title).getWrappedElement().waitUntilVisible().isDisabled()).isTrue();
     }
 
     /**
