@@ -1,5 +1,5 @@
 package contants;
 
 public interface SerenityConfigConstants {
-    String BASEURL = "base.url";
+    public final String BASE_URL = "https://trello.com/home";
 }
