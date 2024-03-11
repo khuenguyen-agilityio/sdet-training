@@ -5,7 +5,7 @@ import net.serenitybdd.core.pages.PageObject;
 import object_behaviors.implementation.WebElementImpl;
 import object_behaviors.rules.WebElement;
 
-public class HomePage extends PageObject {
+public class TrelloPage extends PageObject {
     private final String login_link = "//a[text()='%s' and @data-uuid='%s']";
 
     public WebElement loginLink(String text) {
