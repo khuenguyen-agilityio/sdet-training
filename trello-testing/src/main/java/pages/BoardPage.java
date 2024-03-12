@@ -33,7 +33,8 @@ public class BoardPage extends PageObject {
             button_labels_action = "//button[@type='button' and text() = '%s']",
             button_submit = "//button[@type='submit' and text() = '%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
-            card_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']";
+            card_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']",
+            toast = "//div[@role='%s']/descendant::span[text()='%s']";
 
     public WebElement buttonLabels() {
         return new WebElementImpl($(button_labels));
@@ -137,6 +138,11 @@ public class BoardPage extends PageObject {
 
     public WebElement cardChecklistItem(String title) {
         String formattedElement = String.format(card_checklist_item, title);
+        return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement toast(String type, String message) {
+        String formattedElement = String.format(toast, type, message);
         return new WebElementImpl($(formattedElement));
     }
 }

@@ -222,4 +222,14 @@ public class BoardPageActions {
         boardPage.buttonDeleteAttachment().getWrappedElement().waitUntilVisible().click();
         boardPage.buttonConfirmDelete().getWrappedElement().waitUntilVisible().click();
     }
+
+    /**
+     * Verify the toast with given type and message has been displayed
+     *
+     * @param type
+     * @param message
+     */
+    public void verifyToastDisplayed(String type, String message) {
+        assertThat(boardPage.toast(type, message).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+    }
 }

@@ -97,4 +97,9 @@ public class BoardPageSteps {
         boardPageActions.verifyAttachmentName();
     }
 
+    @Then("Verify the user is able to see {string} toast with message {string}")
+    public void verify_the_user_is_able_to_see_toast_with_message(String type, String message) {
+        boardPageActions.verifyToastDisplayed(type, message);
+    }
+
 }

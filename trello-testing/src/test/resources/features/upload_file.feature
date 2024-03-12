@@ -12,3 +12,8 @@ Feature: User manage check list task in card
   Scenario: User upload attachment successfully
     When The user upload file with path "\Users\Khue Nguyen\Desktop\test\cat_image.jpg"
     Then Verify the user is able to see the file has been uploaded
+
+  @202
+  Scenario: User upload attachment successfully in case user input large file
+    When The user upload file with path "\Users\Khue Nguyen\Desktop\test\11MB.file"
+    Then Verify the user is able to see "alert" toast with message "File size exceeds 10MB limit"
