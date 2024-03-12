@@ -118,6 +118,7 @@ public class BoardPageActions {
             boardPage.inputChecklistItem().getWrappedElement().waitUntilVisible().sendKeys(item);
             boardPage.buttonAddChecklistItem().click();
         }
+        boardPage.buttonCancelAddChecklistItem().click();
         Storage.getStorage().saveObjectValue(TEST_CHECKLIST_ITEMS, items);
     }
 
@@ -127,17 +128,18 @@ public class BoardPageActions {
      * Verify the items has been created with the value from Storage
      */
     public void verifyChecklist() {
+        // wait for heading visible
         boardPage.checklistHeading().getWrappedElement().waitUntilVisible();
         String heading = (String) Storage.getStorage().getObject(TEST_CHECKLIST_HEADING);
 
+        // wait for button cancel invisible (all item is ready)
+        boardPage.buttonCancelAddChecklistItem().getWrappedElement().waitUntilNotVisible();
 
-        List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
-        for (String item : items) {
-            boardPage.cardChecklistItem(item).getWrappedElement().waitUntilVisible();
-        }
-
+        // create compare list
         List<String> createdItems = new ArrayList<>();
+        List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
         boardPage.checklistItems().forEach(element -> createdItems.add(element.getText()));
+
         SoftAssertions assertions = new SoftAssertions();
         assertions.assertThat(boardPage.checklistHeading().getWrappedElement().getText()).isEqualTo(heading);
         assertions.assertThat(items.equals(createdItems)).isTrue();
@@ -152,11 +154,14 @@ public class BoardPageActions {
         boardPage.buttonConfirmDeleteChecklist().getWrappedElement().waitUntilVisible().click();
     }
 
+    /**
+     * Tick the checkbox of checklist item with the index smaller than given count
+     *
+     * @param count
+     */
     public void tickCheckboxItems(int count) {
-        List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
-        for (String item : items) {
-            boardPage.cardChecklistItem(item).getWrappedElement().waitUntilVisible();
-        }
+        // wait for button cancel invisible (all item is ready)
+        boardPage.buttonCancelAddChecklistItem().getWrappedElement().waitUntilNotVisible();
 
         AtomicInteger index = new AtomicInteger();
         boardPage.checkboxChecklist().forEach(checkbox -> {
@@ -167,11 +172,19 @@ public class BoardPageActions {
         });
     }
 
+    /**
+     * Verify the checklist progress percent displayed the given percent
+     *
+     * @param percent
+     */
     public void verifyChecklistProgress(int percent) {
         String text = percent + "%";
         assertThat(boardPage.checklistProgressPercent().getWrappedElement().waitUntilVisible().getText()).isEqualTo(text);
     }
 
+    /**
+     * Verify the checklist items is empty (no item in the list)
+     */
     public void verifyChecklistItemsIsEmpty() {
         assertThat(boardPage.checklistItemContainer().getWrappedElement().getText().isEmpty()).isTrue();
     }

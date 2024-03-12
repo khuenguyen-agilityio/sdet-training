@@ -7,7 +7,6 @@ import object_behaviors.rules.WebElement;
 import org.openqa.selenium.By;
 
 public class BoardPage extends PageObject {
-    private final String test_card = "//a[text() = '%s']/ancestor::div[@data-testid='trello-card']";
     private final By button_labels = By.xpath("//a[@class='button-link js-edit-labels']"),
             button_attachment = By.xpath("//div[@class='js-new-card-attachment-picker-react-root-for-sidebar']"),
             button_checklist = By.xpath("//div[@class='js-add-checklist-menu']"),
@@ -17,6 +16,7 @@ public class BoardPage extends PageObject {
             input_checklist_title = By.id("id-checklist"),
             input_checklist_item = By.xpath("//textarea[@class='edit field checklist-new-item-text js-new-checklist-item-input']"),
             button_add_checklist_item = By.xpath("//input[@class='nch-button nch-button--primary confirm mod-submit-edit js-add-checklist-item']"),
+            button_cancel_add_checklist_item = By.xpath("//a[@class='nch-button nch-button--subtle cancel js-cancel-checklist-item']"),
             checklist_heading = By.xpath("//h3[@class='current hide-on-edit']"),
             checklist_items = By.xpath("//span[@class='checklist-item-details-text markeddown js-checkitem-name']"),
             button_delete_checklist = By.xpath("//a[@class='nch-button hide-on-edit js-confirm-delete']"),
@@ -25,15 +25,12 @@ public class BoardPage extends PageObject {
             checklist_progress_bar = By.xpath("//span[@class='checklist-progress-percentage js-checklist-progress-percent']"),
             checklist_item_container = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']");
 
-    private final String button_labels_action = "//button[@type='button' and text() = '%s']",
+    private final String
+            test_card = "//a[text() = '%s']/ancestor::div[@data-testid='trello-card']",
+            button_labels_action = "//button[@type='button' and text() = '%s']",
             button_submit = "//button[@type='submit' and text() = '%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
             card_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']";
-
-    public WebElement testCard(String name) {
-        String formattedElement = String.format(test_card, name);
-        return new WebElementImpl($(formattedElement));
-    }
 
     public WebElement buttonLabels() {
         return new WebElementImpl($(button_labels));
@@ -71,6 +68,10 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(button_add_checklist_item));
     }
 
+    public WebElement buttonCancelAddChecklistItem() {
+        return new WebElementImpl($(button_cancel_add_checklist_item));
+    }
+
     public ListOfWebElementFacades checklistItems() {
         return ($$(checklist_items));
     }
@@ -97,6 +98,11 @@ public class BoardPage extends PageObject {
 
     public WebElement checklistItemContainer() {
         return new WebElementImpl($(checklist_item_container));
+    }
+
+    public WebElement testCard(String name) {
+        String formattedElement = String.format(test_card, name);
+        return new WebElementImpl($(formattedElement));
     }
 
     public WebElement buttonLabelsAction(String name) {
