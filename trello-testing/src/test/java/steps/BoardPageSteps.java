@@ -81,4 +81,20 @@ public class BoardPageSteps {
     public void verify_the_user_is_able_to_see_empty_checklist() {
         boardPageActions.verifyChecklistItemsIsEmpty();
     }
+
+    @Given("The user click on the Attachment button on the right sidebar")
+    public void the_user_click_on_the_attachment_button_on_the_right_sidebar() {
+        boardPageActions.clickButtonAttachment();
+    }
+
+    @When("The user upload file with path {string}")
+    public void the_user_upload_file_with_path(String path) {
+        boardPageActions.uploadAttachment(path);
+    }
+
+    @Then("Verify the user is able to see the file has been uploaded")
+    public void verify_the_user_is_able_to_see_the_file_has_been_uploaded() {
+        boardPageActions.verifyAttachmentName();
+    }
+
 }

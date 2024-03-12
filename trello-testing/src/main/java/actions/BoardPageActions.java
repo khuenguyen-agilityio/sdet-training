@@ -151,7 +151,7 @@ public class BoardPageActions {
      */
     public void deleteChecklist() {
         boardPage.buttonDeleteChecklist().getWrappedElement().waitUntilVisible().click();
-        boardPage.buttonConfirmDeleteChecklist().getWrappedElement().waitUntilVisible().click();
+        boardPage.buttonConfirmDelete().getWrappedElement().waitUntilVisible().click();
     }
 
     /**
@@ -187,5 +187,39 @@ public class BoardPageActions {
      */
     public void verifyChecklistItemsIsEmpty() {
         assertThat(boardPage.checklistItemContainer().getWrappedElement().getText().isEmpty()).isTrue();
+    }
+
+    /**
+     * Click on button Attachment to open Attachment menu
+     */
+    public void clickButtonAttachment() {
+        boardPage.buttonAttachment().getWrappedElement().waitUntilVisible().click();
+    }
+
+    /**
+     * Upload file from path and save it to Storage
+     *
+     * @param path
+     */
+    public void uploadAttachment(String path) {
+        boardPage.uploadAttachment(path);
+        Storage.getStorage().saveObjectValue(ATTACHMENT_PATH, path);
+    }
+
+    /**
+     * Verify the file path from Storage contain the file displayed
+     */
+    public void verifyAttachmentName() {
+        String filePath = (String) Storage.getStorage().getObject(ATTACHMENT_PATH);
+        String displayName = boardPage.attachmentName().getWrappedElement().waitUntilVisible().getText();
+        assertThat(filePath).contains(displayName);
+    }
+
+    /**
+     * Delete the attachment uploaded
+     */
+    public void deleteAttachment() {
+        boardPage.buttonDeleteAttachment().getWrappedElement().waitUntilVisible().click();
+        boardPage.buttonConfirmDelete().getWrappedElement().waitUntilVisible().click();
     }
 }
