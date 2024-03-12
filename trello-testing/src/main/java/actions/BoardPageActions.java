@@ -6,6 +6,7 @@ import pages.BoardPage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static contants.StorageKey.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -128,7 +129,13 @@ public class BoardPageActions {
     public void verifyChecklist() {
         boardPage.checklistHeading().getWrappedElement().waitUntilVisible();
         String heading = (String) Storage.getStorage().getObject(TEST_CHECKLIST_HEADING);
+
+
         List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
+        for (String item : items) {
+            boardPage.createdChecklistItem(item).getWrappedElement().waitUntilVisible();
+        }
+
         List<String> createdItems = new ArrayList<>();
         boardPage.checklistItems().forEach(element -> createdItems.add(element.getText()));
         SoftAssertions assertions = new SoftAssertions();
@@ -143,5 +150,20 @@ public class BoardPageActions {
     public void deleteChecklist() {
         boardPage.buttonDeleteChecklist().getWrappedElement().waitUntilVisible().click();
         boardPage.buttonConfirmDeleteChecklist().getWrappedElement().waitUntilVisible().click();
+    }
+
+    public void tickCheckboxItems(int count) {
+        AtomicInteger index = new AtomicInteger();
+        boardPage.checkboxChecklist().forEach(checkbox -> {
+            if (index.get() < count) {
+                checkbox.waitUntilVisible().click();
+            }
+            index.getAndIncrement();
+        });
+    }
+
+    public void verifyChecklistProgress(int percent) {
+        String text = percent + "%";
+        assertThat(boardPage.checklistProgressPercent().getWrappedElement().waitUntilVisible().getText()).isEqualTo(text);
     }
 }

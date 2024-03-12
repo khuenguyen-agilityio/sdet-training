@@ -20,11 +20,14 @@ public class BoardPage extends PageObject {
             checklist_heading = By.xpath("//h3[@class='current hide-on-edit']"),
             checklist_items = By.xpath("//span[@class='checklist-item-details-text markeddown js-checkitem-name']"),
             button_delete_checklist = By.xpath("//a[@class='nch-button hide-on-edit js-confirm-delete']"),
-            button_confirm_delete_checklist = By.xpath("//input[@class='js-confirm full nch-button nch-button--danger']");
+            button_confirm_delete_checklist = By.xpath("//input[@class='js-confirm full nch-button nch-button--danger']"),
+            checkbox_checklist_items = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']//descendant::input[@type='checkbox']"),
+            checklist_progress_bar = By.xpath("//span[@class='checklist-progress-percentage js-checklist-progress-percent']");
 
     private final String button_labels_action = "//button[@type='button' and text() = '%s']",
             button_submit = "//button[@type='submit' and text() = '%s']",
-            button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button";
+            button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
+            created_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name'  and text() = '%s']";
 
     public WebElement testCard(String name) {
         String formattedElement = String.format(test_card, name);
@@ -83,6 +86,14 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(button_confirm_delete_checklist));
     }
 
+    public ListOfWebElementFacades checkboxChecklist() {
+        return ($$(checkbox_checklist_items));
+    }
+
+    public WebElement checklistProgressPercent() {
+        return new WebElementImpl($(checklist_progress_bar));
+    }
+
     public WebElement buttonLabelsAction(String name) {
         String formattedElement = String.format(button_labels_action, name);
         return new WebElementImpl($(formattedElement));
@@ -95,6 +106,11 @@ public class BoardPage extends PageObject {
 
     public WebElement buttonSubmit(String text) {
         String formattedElement = String.format(button_submit, text);
+        return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement createdChecklistItem(String title) {
+        String formattedElement = String.format(created_checklist_item, title);
         return new WebElementImpl($(formattedElement));
     }
 }

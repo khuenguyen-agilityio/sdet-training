@@ -17,3 +17,13 @@ Feature: User manage check list task in card
       | Checklist test item 003 |
       | Checklist test item 004 |
     Then Verify user is able to see the checklist item has been created
+
+  @102 @delete_checklist
+  Scenario: User can see percent of checklist task exactly
+    And The user create checklist item
+      | Checklist test item 001 |
+      | Checklist test item 002 |
+      | Checklist test item 003 |
+      | Checklist test item 004 |
+    When The user tick 2 first item of the checklist
+    Then Verify user is able to see progress bar of checklist has 50 percentage

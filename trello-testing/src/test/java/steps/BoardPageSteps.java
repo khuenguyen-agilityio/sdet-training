@@ -66,4 +66,15 @@ public class BoardPageSteps {
     public void verify_user_is_able_to_see_the_checklist_item_has_been_created() {
         boardPageActions.verifyChecklist();
     }
+
+    @When("The user tick {int} first item of the checklist")
+    public void the_user_tick_first_item_of_the_checklist(Integer count) {
+        boardPageActions.tickCheckboxItems(count);
+    }
+
+    @Then("Verify user is able to see progress bar of checklist has {int} percentage")
+    public void verify_user_is_able_to_see_progress_bar_of_checklist_has_percentage(Integer percent) {
+        boardPageActions.verifyChecklistProgress(percent);
+    }
+
 }
