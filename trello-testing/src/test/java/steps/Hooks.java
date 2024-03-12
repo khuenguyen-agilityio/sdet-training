@@ -15,13 +15,18 @@ public class Hooks {
         Storage.instantiateStorage();
     }
 
-    @After(value = "@delete_test_label")
+    @After("@delete_test_label")
     public void deleteTestLabel() {
         boardPageActions.deleteTestLabel();
     }
-    
-    @After(value = "@delete_checklist")
+
+    @After("@delete_checklist")
     public void deleteChecklist() {
         boardPageActions.deleteChecklist();
+    }
+
+    @After("@delete_attachment")
+    public void deleteAttachment() {
+        boardPageActions.deleteAttachment();
     }
 }

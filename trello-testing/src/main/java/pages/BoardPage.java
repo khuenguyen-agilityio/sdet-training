@@ -20,17 +20,21 @@ public class BoardPage extends PageObject {
             checklist_heading = By.xpath("//h3[@class='current hide-on-edit']"),
             checklist_items = By.xpath("//span[@class='checklist-item-details-text markeddown js-checkitem-name']"),
             button_delete_checklist = By.xpath("//a[@class='nch-button hide-on-edit js-confirm-delete']"),
-            button_confirm_delete_checklist = By.xpath("//input[@class='js-confirm full nch-button nch-button--danger']"),
+            button_confirm_delete = By.xpath("//input[@class='js-confirm full nch-button nch-button--danger']"),
             checkbox_checklist_items = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']//descendant::input[@type='checkbox']"),
             checklist_progress_bar = By.xpath("//span[@class='checklist-progress-percentage js-checklist-progress-percent']"),
-            checklist_item_container = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']");
+            checklist_item_container = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']"),
+            input_file_upload = By.id("card-attachment-file-picker"),
+            attachment_name = By.xpath("//span[@class='attachment-thumbnail-name']"),
+            button_delete_attachment = By.xpath("//a[@class='attachment-thumbnail-details-title-options-item dark-hover js-confirm-delete']");
 
     private final String
             test_card = "//a[text() = '%s']/ancestor::div[@data-testid='trello-card']",
             button_labels_action = "//button[@type='button' and text() = '%s']",
             button_submit = "//button[@type='submit' and text() = '%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
-            card_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']";
+            card_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']",
+            toast = "//div[@role='%s']/descendant::span[text()='%s']";
 
     public WebElement buttonLabels() {
         return new WebElementImpl($(button_labels));
@@ -84,8 +88,8 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(button_delete_checklist));
     }
 
-    public WebElement buttonConfirmDeleteChecklist() {
-        return new WebElementImpl($(button_confirm_delete_checklist));
+    public WebElement buttonConfirmDelete() {
+        return new WebElementImpl($(button_confirm_delete));
     }
 
     public ListOfWebElementFacades checkboxChecklist() {
@@ -98,6 +102,18 @@ public class BoardPage extends PageObject {
 
     public WebElement checklistItemContainer() {
         return new WebElementImpl($(checklist_item_container));
+    }
+
+    public void uploadAttachment(String path) {
+        upload(path).to($(input_file_upload));
+    }
+
+    public WebElement attachmentName() {
+        return new WebElementImpl($(attachment_name));
+    }
+
+    public WebElement buttonDeleteAttachment() {
+        return new WebElementImpl($(button_delete_attachment));
     }
 
     public WebElement testCard(String name) {
@@ -122,6 +138,11 @@ public class BoardPage extends PageObject {
 
     public WebElement cardChecklistItem(String title) {
         String formattedElement = String.format(card_checklist_item, title);
+        return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement toast(String type, String message) {
+        String formattedElement = String.format(toast, type, message);
         return new WebElementImpl($(formattedElement));
     }
 }

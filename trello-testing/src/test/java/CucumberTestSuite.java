@@ -1,4 +1,7 @@
-import org.junit.platform.suite.api.*;
+import org.junit.platform.suite.api.ConfigurationParameter;
+import org.junit.platform.suite.api.IncludeEngines;
+import org.junit.platform.suite.api.SelectClasspathResource;
+import org.junit.platform.suite.api.Suite;
 
 import static io.cucumber.junit.platform.engine.Constants.*;
 
@@ -18,7 +21,7 @@ import static io.cucumber.junit.platform.engine.Constants.*;
  *  - use junit 5 execution as IncludeTags below, when simple execution
  *  - in console shows only one scenario execution
  */
-@IncludeTags(value = "101")
+//@IncludeTags("UploadAttachment")
 //@ExcludeTags("tag01")
 public class CucumberTestSuite {
 }
