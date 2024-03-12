@@ -133,7 +133,7 @@ public class BoardPageActions {
 
         List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
         for (String item : items) {
-            boardPage.createdChecklistItem(item).getWrappedElement().waitUntilVisible();
+            boardPage.cardChecklistItem(item).getWrappedElement().waitUntilVisible();
         }
 
         List<String> createdItems = new ArrayList<>();
@@ -153,6 +153,11 @@ public class BoardPageActions {
     }
 
     public void tickCheckboxItems(int count) {
+        List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
+        for (String item : items) {
+            boardPage.cardChecklistItem(item).getWrappedElement().waitUntilVisible();
+        }
+
         AtomicInteger index = new AtomicInteger();
         boardPage.checkboxChecklist().forEach(checkbox -> {
             if (index.get() < count) {
@@ -165,5 +170,9 @@ public class BoardPageActions {
     public void verifyChecklistProgress(int percent) {
         String text = percent + "%";
         assertThat(boardPage.checklistProgressPercent().getWrappedElement().waitUntilVisible().getText()).isEqualTo(text);
+    }
+
+    public void verifyChecklistItemsIsEmpty() {
+        assertThat(boardPage.checklistItemContainer().getWrappedElement().getText().isEmpty()).isTrue();
     }
 }

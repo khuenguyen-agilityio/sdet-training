@@ -77,4 +77,8 @@ public class BoardPageSteps {
         boardPageActions.verifyChecklistProgress(percent);
     }
 
+    @Then("Verify the user is able to see empty checklist")
+    public void verify_the_user_is_able_to_see_empty_checklist() {
+        boardPageActions.verifyChecklistItemsIsEmpty();
+    }
 }
