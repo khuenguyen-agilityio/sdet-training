@@ -19,4 +19,9 @@ public class Hooks {
     public void deleteTestLabel() {
         boardPageActions.deleteTestLabel();
     }
+    
+    @After(value = "@delete_checklist")
+    public void deleteChecklist() {
+        boardPageActions.deleteChecklist();
+    }
 }

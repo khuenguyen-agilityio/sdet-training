@@ -6,6 +6,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.annotations.Steps;
 
+import java.util.List;
+
 public class BoardPageSteps {
     @Steps
     private BoardPageActions boardPageActions;
@@ -45,4 +47,38 @@ public class BoardPageSteps {
         boardPageActions.verifyButtonLabelsActionIsDisabled(title);
     }
 
+    @Given("The user click on checklist button on the right sidebar")
+    public void the_user_click_on_checklist_button_on_the_right_sidebar() {
+        boardPageActions.clickChecklistButton();
+    }
+
+    @Given("The user create new checklist with title {string}")
+    public void the_user_create_new_checklist_with_title(String title) {
+        boardPageActions.createNewChecklist(title);
+    }
+
+    @When("The user create checklist item")
+    public void the_user_create_checklist_item(List<String> items) {
+        boardPageActions.createNewChecklistItem(items);
+    }
+
+    @Then("Verify user is able to see the checklist item has been created")
+    public void verify_user_is_able_to_see_the_checklist_item_has_been_created() {
+        boardPageActions.verifyChecklist();
+    }
+
+    @When("The user tick {int} first item of the checklist")
+    public void the_user_tick_first_item_of_the_checklist(Integer count) {
+        boardPageActions.tickCheckboxItems(count);
+    }
+
+    @Then("Verify user is able to see progress bar of checklist has {int} percentage")
+    public void verify_user_is_able_to_see_progress_bar_of_checklist_has_percentage(Integer percent) {
+        boardPageActions.verifyChecklistProgress(percent);
+    }
+
+    @Then("Verify the user is able to see empty checklist")
+    public void verify_the_user_is_able_to_see_empty_checklist() {
+        boardPageActions.verifyChecklistItemsIsEmpty();
+    }
 }
