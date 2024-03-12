@@ -1,4 +1,4 @@
-@Trello @AddLabel
+@AddLabel
 Feature: User add labels to the card
 
   Background: User login to Trello and go to the testing board

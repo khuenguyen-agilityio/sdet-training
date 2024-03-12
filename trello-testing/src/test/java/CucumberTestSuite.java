@@ -1,7 +1,4 @@
-import org.junit.platform.suite.api.ConfigurationParameter;
-import org.junit.platform.suite.api.IncludeEngines;
-import org.junit.platform.suite.api.SelectClasspathResource;
-import org.junit.platform.suite.api.Suite;
+import org.junit.platform.suite.api.*;
 
 import static io.cucumber.junit.platform.engine.Constants.*;
 
@@ -21,7 +18,7 @@ import static io.cucumber.junit.platform.engine.Constants.*;
  *  - use junit 5 execution as IncludeTags below, when simple execution
  *  - in console shows only one scenario execution
  */
-//@IncludeTags("002")
+@IncludeTags("ManageChecklist")
 //@ExcludeTags("tag01")
 public class CucumberTestSuite {
 }

@@ -6,6 +6,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.annotations.Steps;
 
+import java.util.List;
+
 public class BoardPageSteps {
     @Steps
     private BoardPageActions boardPageActions;
@@ -45,4 +47,23 @@ public class BoardPageSteps {
         boardPageActions.verifyButtonLabelsActionIsDisabled(title);
     }
 
+    @Given("The user click on checklist button on the right sidebar")
+    public void the_user_click_on_checklist_button_on_the_right_sidebar() {
+        boardPageActions.clickChecklistButton();
+    }
+
+    @Given("The user create new checklist with title {string}")
+    public void the_user_create_new_checklist_with_title(String title) {
+        boardPageActions.createNewChecklist(title);
+    }
+
+    @When("The user create checklist item")
+    public void the_user_create_checklist_item(List<String> items) {
+        boardPageActions.createNewChecklistItem(items);
+    }
+
+    @Then("Verify user is able to see the checklist item has been created")
+    public void verify_user_is_able_to_see_the_checklist_item_has_been_created() {
+        boardPageActions.verifyChecklist();
+    }
 }
