@@ -1,7 +1,7 @@
 @UploadAttachment
-Feature: User manage check list task in card
+Feature: User upload attachment
 
-  Background: User upload attachment
+  Background: User login to Trello, choose the testing board and click on testing card
     Given The user is on Trello login page
     And The user input information with specify email "khue.nguyen@asnet.com.vn" and password "Hakhue98"
     And The user choose the board with name "New Test Board"

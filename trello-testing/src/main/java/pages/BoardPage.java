@@ -34,7 +34,9 @@ public class BoardPage extends PageObject {
             button_submit = "//button[@type='submit' and text() = '%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
             card_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']",
-            toast = "//div[@role='%s']/descendant::span[text()='%s']";
+            toast = "//div[@role='%s']/descendant::span[text()='%s']",
+            task_card = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']/descendant::a[text()='%s']/ancestor::li[@data-testid='list-card']",
+            card_column = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']";
 
     public WebElement buttonLabels() {
         return new WebElementImpl($(button_labels));
@@ -143,6 +145,16 @@ public class BoardPage extends PageObject {
 
     public WebElement toast(String type, String message) {
         String formattedElement = String.format(toast, type, message);
+        return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement taskCard(String column, String title) {
+        String formattedElement = String.format(task_card, column, title);
+        return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement cardColumn(String heading) {
+        String formattedElement = String.format(card_column, heading);
         return new WebElementImpl($(formattedElement));
     }
 }

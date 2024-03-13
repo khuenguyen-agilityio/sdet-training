@@ -29,4 +29,9 @@ public class Hooks {
     public void deleteAttachment() {
         boardPageActions.deleteAttachment();
     }
+
+    @After("@move_back_card")
+    public void moveBackCard() {
+        boardPageActions.moveBackCard();
+    }
 }
