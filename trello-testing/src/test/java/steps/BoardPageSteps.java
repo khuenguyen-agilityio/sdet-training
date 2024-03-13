@@ -111,4 +111,9 @@ public class BoardPageSteps {
     public void verify_the_user_is_able_to_see_the_card_in_the_column_moved() {
         boardPageActions.verifyCardHasBeenMoved();
     }
+
+    @Then("Verify the user is able to see the card has not been moved")
+    public void verify_the_user_is_able_to_see_the_card_has_not_been_moved() {
+        boardPageActions.verifyCardHasNotBeenMoved();
+    }
 }

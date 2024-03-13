@@ -266,4 +266,13 @@ public class BoardPageActions {
         String endColumn = (String) Storage.getStorage().getObject(END_COLUMN);
         new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(endColumn, title).getWrappedElement(), boardPage.cardColumn(startColumn).getWrappedElement()).perform();
     }
+
+    /**
+     * Verify the card has not been moved and stay in start column
+     */
+    public void verifyCardHasNotBeenMoved() {
+        String title = (String) Storage.getStorage().getObject(CARD_TITLE);
+        String column = (String) Storage.getStorage().getObject(START_COLUMN);
+        assertThat(boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+    }
 }
