@@ -237,7 +237,7 @@ public class BoardPageActions {
     /**
      * Drag the card from start column to end column
      *
-     * @param title       the title of the cd
+     * @param title       the title of the card
      * @param startColumn the heading of the start column
      * @param endColumn   the heading of the end column
      */
@@ -274,5 +274,17 @@ public class BoardPageActions {
         String title = (String) Storage.getStorage().getObject(CARD_TITLE);
         String column = (String) Storage.getStorage().getObject(START_COLUMN);
         assertThat(boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+    }
+
+    /**
+     * Drag the card from column to Trello logo
+     *
+     * @param title  the title of the card
+     * @param column the column of the card
+     */
+    public void dragCardToTrelloLogo(String title, String column) {
+        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(column, title).getWrappedElement(), boardPage.trelloLogo().getWrappedElement()).perform();
+        Storage.getStorage().saveObjectValue(CARD_TITLE, title);
+        Storage.getStorage().saveObjectValue(START_COLUMN, column);
     }
 }

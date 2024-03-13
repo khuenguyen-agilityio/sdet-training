@@ -116,4 +116,10 @@ public class BoardPageSteps {
     public void verify_the_user_is_able_to_see_the_card_has_not_been_moved() {
         boardPageActions.verifyCardHasNotBeenMoved();
     }
+
+    @When("The user move the card {string} from {string} column to Trello logo")
+    public void the_user_move_the_card_from_column_to_trello_logo(String title, String column) {
+        boardPageActions.dragCardToTrelloLogo(title, column);
+    }
+
 }

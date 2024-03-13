@@ -15,3 +15,8 @@ Feature: User move card between columns
   Scenario: User move card between columns unsuccessfully in case user doesn't move card outside the column
     When The user move the card "New Test Card 001" from "TODO" column to "TODO" column
     Then Verify the user is able to see the card has not been moved
+
+  @303
+  Scenario: User move card between columns unsuccessfully in case user drag card into Trello logo
+    When The user move the card "New Test Card 001" from "TODO" column to Trello logo
+    Then Verify the user is able to see the card has not been moved

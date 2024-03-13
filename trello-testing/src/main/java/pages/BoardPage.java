@@ -26,7 +26,8 @@ public class BoardPage extends PageObject {
             checklist_item_container = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']"),
             input_file_upload = By.id("card-attachment-file-picker"),
             attachment_name = By.xpath("//span[@class='attachment-thumbnail-name']"),
-            button_delete_attachment = By.xpath("//a[@class='attachment-thumbnail-details-title-options-item dark-hover js-confirm-delete']");
+            button_delete_attachment = By.xpath("//a[@class='attachment-thumbnail-details-title-options-item dark-hover js-confirm-delete']"),
+            trello_logo = By.xpath("//nav[@id='header']/a");
 
     private final String
             test_card = "//a[text() = '%s']/ancestor::div[@data-testid='trello-card']",
@@ -116,6 +117,10 @@ public class BoardPage extends PageObject {
 
     public WebElement buttonDeleteAttachment() {
         return new WebElementImpl($(button_delete_attachment));
+    }
+
+    public WebElement trelloLogo() {
+        return new WebElementImpl($(trello_logo));
     }
 
     public WebElement testCard(String name) {

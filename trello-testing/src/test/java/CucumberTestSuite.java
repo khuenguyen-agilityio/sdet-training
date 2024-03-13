@@ -16,7 +16,7 @@ import static io.cucumber.junit.platform.engine.Constants.*;
  * - use FILTER_TAGS_PROPERTY_NAME execution below, when need to use cucumber tag formula
  * - in console shows all features
  */
-@ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME, value = "@302")
+@ConfigurationParameter(key = FILTER_TAGS_PROPERTY_NAME, value = "@303")
 /**
  *  - use junit 5 execution as IncludeTags below, when simple execution
  *  - in console shows only one scenario execution
