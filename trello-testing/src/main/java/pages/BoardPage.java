@@ -26,15 +26,17 @@ public class BoardPage extends PageObject {
             checklist_item_container = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']"),
             input_file_upload = By.id("card-attachment-file-picker"),
             attachment_name = By.xpath("//span[@class='attachment-thumbnail-name']"),
-            button_delete_attachment = By.xpath("//a[@class='attachment-thumbnail-details-title-options-item dark-hover js-confirm-delete']");
+            button_delete_attachment = By.xpath("//a[@class='attachment-thumbnail-details-title-options-item dark-hover js-confirm-delete']"),
+            trello_logo = By.xpath("//nav[@id='header']/a");
 
     private final String
-            test_card = "//a[text() = '%s']/ancestor::div[@data-testid='trello-card']",
+            task_card = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']/descendant::a[text()='%s']/ancestor::li[@data-testid='list-card']",
             button_labels_action = "//button[@type='button' and text() = '%s']",
             button_submit = "//button[@type='submit' and text() = '%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
             card_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']",
-            toast = "//div[@role='%s']/descendant::span[text()='%s']";
+            toast = "//div[@role='%s']/descendant::span[text()='%s']",
+            card_column = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']";
 
     public WebElement buttonLabels() {
         return new WebElementImpl($(button_labels));
@@ -116,9 +118,8 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(button_delete_attachment));
     }
 
-    public WebElement testCard(String name) {
-        String formattedElement = String.format(test_card, name);
-        return new WebElementImpl($(formattedElement));
+    public WebElement trelloLogo() {
+        return new WebElementImpl($(trello_logo));
     }
 
     public WebElement buttonLabelsAction(String name) {
@@ -143,6 +144,16 @@ public class BoardPage extends PageObject {
 
     public WebElement toast(String type, String message) {
         String formattedElement = String.format(toast, type, message);
+        return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement taskCard(String column, String title) {
+        String formattedElement = String.format(task_card, column, title);
+        return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement cardColumn(String heading) {
+        String formattedElement = String.format(card_column, heading);
         return new WebElementImpl($(formattedElement));
     }
 }

@@ -2,6 +2,7 @@ package actions;
 
 import helpers.Storage;
 import org.assertj.core.api.SoftAssertions;
+import org.openqa.selenium.interactions.Actions;
 import pages.BoardPage;
 
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class BoardPageActions {
      *
      * @param title
      */
-    public void clickCardWithTitle(String title) {
-        boardPage.testCard(title).getWrappedElement().waitUntilVisible().click();
+    public void clickCardWithTitleAndColumn(String title, String column) {
+        boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().click();
     }
 
     /**
@@ -111,7 +112,7 @@ public class BoardPageActions {
      * Create checklist items with following items
      * Browsing through item in the items list to create it
      *
-     * @param items
+     * @param items the list of item will be created
      */
     public void createNewChecklistItem(List<String> items) {
         for (String item : items) {
@@ -157,7 +158,7 @@ public class BoardPageActions {
     /**
      * Tick the checkbox of checklist item with the index smaller than given count
      *
-     * @param count
+     * @param count the number of checkbox will be ticked
      */
     public void tickCheckboxItems(int count) {
         // wait for button cancel invisible (all item is ready)
@@ -226,10 +227,64 @@ public class BoardPageActions {
     /**
      * Verify the toast with given type and message has been displayed
      *
-     * @param type
-     * @param message
+     * @param type    the type of the toast
+     * @param message the message displayed
      */
     public void verifyToastDisplayed(String type, String message) {
         assertThat(boardPage.toast(type, message).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+    }
+
+    /**
+     * Drag the card from start column to end column
+     *
+     * @param title       the title of the card
+     * @param startColumn the heading of the start column
+     * @param endColumn   the heading of the end column
+     */
+    public void dragCardThroughColumns(String title, String startColumn, String endColumn) {
+        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(startColumn, title).getWrappedElement(), boardPage.cardColumn(endColumn).getWrappedElement()).perform();
+        Storage.getStorage().saveObjectValue(CARD_TITLE, title);
+        Storage.getStorage().saveObjectValue(START_COLUMN, startColumn);
+        Storage.getStorage().saveObjectValue(END_COLUMN, endColumn);
+    }
+
+    /**
+     * Verify the card has been move to the end column
+     */
+    public void verifyCardHasBeenMoved() {
+        String title = (String) Storage.getStorage().getObject(CARD_TITLE);
+        String column = (String) Storage.getStorage().getObject(END_COLUMN);
+        assertThat(boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+    }
+
+    /**
+     * Move back card from end column to the start column
+     */
+    public void moveBackCard() {
+        String title = (String) Storage.getStorage().getObject(CARD_TITLE);
+        String startColumn = (String) Storage.getStorage().getObject(START_COLUMN);
+        String endColumn = (String) Storage.getStorage().getObject(END_COLUMN);
+        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(endColumn, title).getWrappedElement(), boardPage.cardColumn(startColumn).getWrappedElement()).perform();
+    }
+
+    /**
+     * Verify the card has not been moved and stay in start column
+     */
+    public void verifyCardHasNotBeenMoved() {
+        String title = (String) Storage.getStorage().getObject(CARD_TITLE);
+        String column = (String) Storage.getStorage().getObject(START_COLUMN);
+        assertThat(boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+    }
+
+    /**
+     * Drag the card from column to Trello logo
+     *
+     * @param title  the title of the card
+     * @param column the column of the card
+     */
+    public void dragCardToTrelloLogo(String title, String column) {
+        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(column, title).getWrappedElement(), boardPage.trelloLogo().getWrappedElement()).perform();
+        Storage.getStorage().saveObjectValue(CARD_TITLE, title);
+        Storage.getStorage().saveObjectValue(START_COLUMN, column);
     }
 }

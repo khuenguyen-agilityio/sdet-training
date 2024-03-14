@@ -12,9 +12,9 @@ public class BoardPageSteps {
     @Steps
     private BoardPageActions boardPageActions;
 
-    @Given("The user click on the card {string} on the list")
-    public void the_user_click_on_the_card_on_the_list(String title) {
-        boardPageActions.clickCardWithTitle(title);
+    @Given("The user click on the card {string} on the {string} column")
+    public void the_user_click_on_the_card_on_the_column(String title, String column) {
+        boardPageActions.clickCardWithTitleAndColumn(title, column);
     }
 
     @When("The user create new label with {string} title")
@@ -100,6 +100,26 @@ public class BoardPageSteps {
     @Then("Verify the user is able to see {string} toast with message {string}")
     public void verify_the_user_is_able_to_see_toast_with_message(String type, String message) {
         boardPageActions.verifyToastDisplayed(type, message);
+    }
+
+    @When("The user move the card {string} from {string} column to {string} column")
+    public void the_user_move_the_card_from_column_to_column(String cardTitle, String startColumn, String endColumn) {
+        boardPageActions.dragCardThroughColumns(cardTitle, startColumn, endColumn);
+    }
+
+    @Then("Verify the user is able to see the card in the column moved")
+    public void verify_the_user_is_able_to_see_the_card_in_the_column_moved() {
+        boardPageActions.verifyCardHasBeenMoved();
+    }
+
+    @Then("Verify the user is able to see the card has not been moved")
+    public void verify_the_user_is_able_to_see_the_card_has_not_been_moved() {
+        boardPageActions.verifyCardHasNotBeenMoved();
+    }
+
+    @When("The user move the card {string} from {string} column to Trello logo")
+    public void the_user_move_the_card_from_column_to_trello_logo(String title, String column) {
+        boardPageActions.dragCardToTrelloLogo(title, column);
     }
 
 }
