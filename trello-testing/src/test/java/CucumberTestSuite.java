@@ -18,7 +18,7 @@ import static io.cucumber.junit.platform.engine.Constants.*;
  *  - use junit 5 execution as IncludeTags below, when simple execution
  *  - in console shows only one scenario execution
  */
-@IncludeTags("UploadAttachment")
+@IncludeTags("ManageChecklist")
 //@ExcludeTags("tag01")
 public class CucumberTestSuite {
 }

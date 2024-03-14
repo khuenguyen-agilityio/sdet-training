@@ -21,8 +21,6 @@ public class BoardPage extends PageObject {
             checklist_items = By.xpath("//span[@class='checklist-item-details-text markeddown js-checkitem-name']"),
             button_delete_checklist = By.xpath("//a[@class='nch-button hide-on-edit js-confirm-delete']"),
             button_confirm_delete = By.xpath("//input[@class='js-confirm full nch-button nch-button--danger']"),
-            checkbox_checklist_items = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']//descendant::input[@type='checkbox']"),
-            checklist_progress_bar = By.xpath("//span[@class='checklist-progress-percentage js-checklist-progress-percent']"),
             checklist_item_container = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']"),
             input_file_upload = By.id("card-attachment-file-picker"),
             attachment_name = By.xpath("//span[@class='attachment-thumbnail-name']"),
@@ -35,6 +33,8 @@ public class BoardPage extends PageObject {
             button_submit = "//button[@type='submit' and text() = '%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
             card_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']",
+            checkbox_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']/descendant::input[@type='checkbox']",
+            checklist_progress_bar = "//span[@class='checklist-progress-percentage js-checklist-progress-percent' and text()='%s']",
             toast = "//div[@role='%s']/descendant::span[text()='%s']",
             card_column = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']";
 
@@ -94,14 +94,6 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(button_confirm_delete));
     }
 
-    public ListOfWebElementFacades checkboxChecklist() {
-        return ($$(checkbox_checklist_items));
-    }
-
-    public WebElement checklistProgressPercent() {
-        return new WebElementImpl($(checklist_progress_bar));
-    }
-
     public WebElement checklistItemContainer() {
         return new WebElementImpl($(checklist_item_container));
     }
@@ -139,6 +131,17 @@ public class BoardPage extends PageObject {
 
     public WebElement cardChecklistItem(String title) {
         String formattedElement = String.format(card_checklist_item, title);
+        return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement checkboxChecklistItem(String title) {
+        String formattedElement = String.format(checkbox_checklist_item, title);
+        return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement checklistProgressPercent(int percent) {
+        String percentText = percent + "%";
+        String formattedElement = String.format(checklist_progress_bar, percentText);
         return new WebElementImpl($(formattedElement));
     }
 
