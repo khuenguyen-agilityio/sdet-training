@@ -30,13 +30,12 @@ public class BoardPage extends PageObject {
             trello_logo = By.xpath("//nav[@id='header']/a");
 
     private final String
-            test_card = "//a[text() = '%s']/ancestor::div[@data-testid='trello-card']",
+            task_card = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']/descendant::a[text()='%s']/ancestor::li[@data-testid='list-card']",
             button_labels_action = "//button[@type='button' and text() = '%s']",
             button_submit = "//button[@type='submit' and text() = '%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
             card_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']",
             toast = "//div[@role='%s']/descendant::span[text()='%s']",
-            task_card = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']/descendant::a[text()='%s']/ancestor::li[@data-testid='list-card']",
             card_column = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']";
 
     public WebElement buttonLabels() {
@@ -121,11 +120,6 @@ public class BoardPage extends PageObject {
 
     public WebElement trelloLogo() {
         return new WebElementImpl($(trello_logo));
-    }
-
-    public WebElement testCard(String name) {
-        String formattedElement = String.format(test_card, name);
-        return new WebElementImpl($(formattedElement));
     }
 
     public WebElement buttonLabelsAction(String name) {

@@ -20,8 +20,8 @@ public class BoardPageActions {
      *
      * @param title
      */
-    public void clickCardWithTitle(String title) {
-        boardPage.testCard(title).getWrappedElement().waitUntilVisible().click();
+    public void clickCardWithTitleAndColumn(String title, String column) {
+        boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().click();
     }
 
     /**

@@ -12,9 +12,9 @@ public class BoardPageSteps {
     @Steps
     private BoardPageActions boardPageActions;
 
-    @Given("The user click on the card {string} on the list")
-    public void the_user_click_on_the_card_on_the_list(String title) {
-        boardPageActions.clickCardWithTitle(title);
+    @Given("The user click on the card {string} on the {string} column")
+    public void the_user_click_on_the_card_on_the_column(String title, String column) {
+        boardPageActions.clickCardWithTitleAndColumn(title, column);
     }
 
     @When("The user create new label with {string} title")
