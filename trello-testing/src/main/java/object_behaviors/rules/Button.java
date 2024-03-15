@@ -2,14 +2,10 @@ package object_behaviors.rules;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public interface WebElement {
+public interface Button {
     WebElementFacade getWrappedElement();
 
     void click();
 
-    void sendKeys(String text);
-
-    void typeAndEnter(String text);
-
-    boolean isDisplayed();
+    boolean isDisabled();
 }

@@ -5,9 +5,7 @@ import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.interactions.Actions;
 import pages.BoardPage;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static contants.StorageKey.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -16,9 +14,10 @@ public class BoardPageActions {
     private BoardPage boardPage;
 
     /**
-     * Click on a card with given title
+     * Click on the card with given title and column
      *
-     * @param title
+     * @param title  title of the card
+     * @param column column contains the card
      */
     public void clickCardWithTitleAndColumn(String title, String column) {
         boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().click();
@@ -28,7 +27,7 @@ public class BoardPageActions {
      * Click on Label button in the right label sidebar
      */
     public void clickLabelButton() {
-        boardPage.buttonLabels().getWrappedElement().waitUntilVisible().click();
+        boardPage.buttonLabels().click();
     }
 
     /**
@@ -53,7 +52,7 @@ public class BoardPageActions {
      * @param label
      */
     public void createNewCardLabel(String label) {
-        boardPage.inputLabelTitle().getWrappedElement().sendKeys(label);
+        boardPage.inputLabelTitle().type(label);
         boardPage.buttonLabelsAction("Create").click();
 
         Storage.getStorage().saveObjectValue(TEST_LABEL, label);
@@ -73,7 +72,7 @@ public class BoardPageActions {
      * @param title
      */
     public void verifyButtonLabelsActionIsDisabled(String title) {
-        assertThat(boardPage.buttonLabelsAction(title).getWrappedElement().waitUntilVisible().isDisabled()).isTrue();
+        assertThat(boardPage.buttonLabelsAction(title).isDisabled()).isTrue();
     }
 
     /**
@@ -84,7 +83,7 @@ public class BoardPageActions {
         String label = (String) Storage.getStorage().getObject(TEST_LABEL);
 
         // wait for button edit visible and click delete button twice
-        boardPage.buttonEditLabel(label).getWrappedElement().waitUntilVisible().click();
+        boardPage.buttonEditLabel(label).click();
         boardPage.buttonLabelsAction("Delete").click();
         boardPage.buttonLabelsAction("Delete").click();
     }
@@ -93,7 +92,7 @@ public class BoardPageActions {
      * Click on the Checklist button to open checklist menu
      */
     public void clickChecklistButton() {
-        boardPage.buttonChecklist().getWrappedElement().waitUntilVisible().click();
+        boardPage.buttonChecklist().click();
     }
 
     /**
@@ -102,7 +101,7 @@ public class BoardPageActions {
      * @param title
      */
     public void createNewChecklist(String title) {
-        boardPage.inputChecklistTitle().getWrappedElement().waitUntilVisible().sendKeys(title);
+        boardPage.inputChecklistTitle().clearAndType(title);
         boardPage.buttonSubmit("Add").click();
 
         Storage.getStorage().saveObjectValue(TEST_CHECKLIST_HEADING, title);
@@ -116,10 +115,12 @@ public class BoardPageActions {
      */
     public void createNewChecklistItem(List<String> items) {
         for (String item : items) {
-            boardPage.inputChecklistItem().getWrappedElement().waitUntilVisible().sendKeys(item);
+            boardPage.inputChecklistItem().type(item);
             boardPage.buttonAddChecklistItem().click();
+            if (item != null) {
+                boardPage.cardChecklistItem(item).getWrappedElement().waitUntilVisible();
+            }
         }
-        boardPage.buttonCancelAddChecklistItem().click();
         Storage.getStorage().saveObjectValue(TEST_CHECKLIST_ITEMS, items);
     }
 
@@ -133,17 +134,14 @@ public class BoardPageActions {
         boardPage.checklistHeading().getWrappedElement().waitUntilVisible();
         String heading = (String) Storage.getStorage().getObject(TEST_CHECKLIST_HEADING);
 
-        // wait for button cancel invisible (all item is ready)
-        boardPage.buttonCancelAddChecklistItem().getWrappedElement().waitUntilNotVisible();
-
         // create compare list
-        List<String> createdItems = new ArrayList<>();
         List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
-        boardPage.checklistItems().forEach(element -> createdItems.add(element.getText()));
 
         SoftAssertions assertions = new SoftAssertions();
         assertions.assertThat(boardPage.checklistHeading().getWrappedElement().getText()).isEqualTo(heading);
-        assertions.assertThat(items.equals(createdItems)).isTrue();
+        for (String item : items) {
+            assertions.assertThat(boardPage.cardChecklistItem(item).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+        }
         assertions.assertAll();
     }
 
@@ -151,8 +149,9 @@ public class BoardPageActions {
      * Delete the checklist created
      */
     public void deleteChecklist() {
-        boardPage.buttonDeleteChecklist().getWrappedElement().waitUntilVisible().click();
-        boardPage.buttonConfirmDelete().getWrappedElement().waitUntilVisible().click();
+        boardPage.buttonDeleteChecklist().click();
+        boardPage.buttonConfirmDelete().click();
+        boardPage.checklistSection().getWrappedElement().waitUntilNotVisible();
     }
 
     /**
@@ -161,16 +160,15 @@ public class BoardPageActions {
      * @param count the number of checkbox will be ticked
      */
     public void tickCheckboxItems(int count) {
-        // wait for button cancel invisible (all item is ready)
-        boardPage.buttonCancelAddChecklistItem().getWrappedElement().waitUntilNotVisible();
+        int index = 0;
+        List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
 
-        AtomicInteger index = new AtomicInteger();
-        boardPage.checkboxChecklist().forEach(checkbox -> {
-            if (index.get() < count) {
-                checkbox.waitUntilVisible().click();
+        for (String item : items) {
+            if (index < count) {
+                boardPage.checkboxChecklistItem(item).getWrappedElement().waitUntilVisible().click();
             }
-            index.getAndIncrement();
-        });
+            index++;
+        }
     }
 
     /**
@@ -179,8 +177,7 @@ public class BoardPageActions {
      * @param percent
      */
     public void verifyChecklistProgress(int percent) {
-        String text = percent + "%";
-        assertThat(boardPage.checklistProgressPercent().getWrappedElement().waitUntilVisible().getText()).isEqualTo(text);
+        assertThat(boardPage.checklistProgressPercent(percent).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
     }
 
     /**
@@ -194,7 +191,7 @@ public class BoardPageActions {
      * Click on button Attachment to open Attachment menu
      */
     public void clickButtonAttachment() {
-        boardPage.buttonAttachment().getWrappedElement().waitUntilVisible().click();
+        boardPage.buttonAttachment().click();
     }
 
     /**
@@ -220,8 +217,11 @@ public class BoardPageActions {
      * Delete the attachment uploaded
      */
     public void deleteAttachment() {
-        boardPage.buttonDeleteAttachment().getWrappedElement().waitUntilVisible().click();
-        boardPage.buttonConfirmDelete().getWrappedElement().waitUntilVisible().click();
+        boardPage.buttonDeleteAttachment().click();
+        boardPage.buttonConfirmDelete().click();
+
+        // wait for heading Attachments invisible
+        boardPage.headingCardItem("Attachments").getWrappedElement().waitUntilNotVisible();
     }
 
     /**
@@ -265,6 +265,7 @@ public class BoardPageActions {
         String startColumn = (String) Storage.getStorage().getObject(START_COLUMN);
         String endColumn = (String) Storage.getStorage().getObject(END_COLUMN);
         new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(endColumn, title).getWrappedElement(), boardPage.cardColumn(startColumn).getWrappedElement()).perform();
+        boardPage.taskCard(startColumn, title).getWrappedElement().waitUntilVisible();
     }
 
     /**

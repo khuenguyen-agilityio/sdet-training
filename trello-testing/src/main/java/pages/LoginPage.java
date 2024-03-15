@@ -1,8 +1,10 @@
 package pages;
 
 import net.serenitybdd.core.pages.PageObject;
-import object_behaviors.implementation.WebElementImpl;
-import object_behaviors.rules.WebElement;
+import object_behaviors.implementation.ButtonImpl;
+import object_behaviors.implementation.TextInputImpl;
+import object_behaviors.rules.Button;
+import object_behaviors.rules.TextInput;
 import org.openqa.selenium.By;
 
 public class LoginPage extends PageObject {
@@ -10,15 +12,15 @@ public class LoginPage extends PageObject {
             input_password = By.id("password"),
             btn_submit = By.id("login-submit");
 
-    public WebElement inputEmail() {
-        return new WebElementImpl($(input_email));
+    public TextInput inputEmail() {
+        return new TextInputImpl($(input_email));
     }
 
-    public WebElement inputPassword() {
-        return new WebElementImpl($(input_password));
+    public TextInput inputPassword() {
+        return new TextInputImpl($(input_password));
     }
 
-    public WebElement buttonSubmit() {
-        return new WebElementImpl($(btn_submit));
+    public Button buttonSubmit() {
+        return new ButtonImpl($(btn_submit));
     }
 }

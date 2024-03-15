@@ -29,7 +29,7 @@ Feature: User manage check list task in card
     Then Verify user is able to see progress bar of checklist has 50 percentage
 
   @103 @delete_checklist
-  Scenario: User manage check list task in card
+  Scenario: User can not add item to checklist in case leave empty input field
     When The user create checklist item
       |  |
     Then Verify the user is able to see empty checklist
