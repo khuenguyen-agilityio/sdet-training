@@ -16,7 +16,7 @@ public class BoardPage extends PageObject {
             input_checklist_title = By.id("id-checklist"),
             input_checklist_item = By.xpath("//textarea[@class='edit field checklist-new-item-text js-new-checklist-item-input']"),
             button_add_checklist_item = By.xpath("//input[@class='nch-button nch-button--primary confirm mod-submit-edit js-add-checklist-item']"),
-            button_cancel_add_checklist_item = By.xpath("//a[@class='nch-button nch-button--subtle cancel js-cancel-checklist-item']"),
+            checklist_section = By.xpath("//div[@data-testid='checklist-section']"),
             checklist_heading = By.xpath("//h3[@class='current hide-on-edit']"),
             checklist_items = By.xpath("//span[@class='checklist-item-details-text markeddown js-checkitem-name']"),
             button_delete_checklist = By.xpath("//a[@class='nch-button hide-on-edit js-confirm-delete']"),
@@ -29,6 +29,7 @@ public class BoardPage extends PageObject {
 
     private final String
             task_card = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']/descendant::a[text()='%s']/ancestor::li[@data-testid='list-card']",
+            heading_card_item = "//div[@class='window-module-title window-module-title-no-divider card-detail-activity']/descendant::h3[text()='%s']",
             button_labels_action = "//button[@type='button' and text() = '%s']",
             button_submit = "//button[@type='submit' and text() = '%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
@@ -74,8 +75,8 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(button_add_checklist_item));
     }
 
-    public WebElement buttonCancelAddChecklistItem() {
-        return new WebElementImpl($(button_cancel_add_checklist_item));
+    public WebElement checklistSection() {
+        return new WebElementImpl($(checklist_section));
     }
 
     public ListOfWebElementFacades checklistItems() {
@@ -114,6 +115,16 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(trello_logo));
     }
 
+    public WebElement taskCard(String column, String title) {
+        String formattedElement = String.format(task_card, column, title);
+        return new WebElementImpl($(formattedElement));
+    }
+
+    public WebElement headingCardItem(String heading) {
+        String formattedElement = String.format(heading_card_item, heading);
+        return new WebElementImpl($(formattedElement));
+    }
+
     public WebElement buttonLabelsAction(String name) {
         String formattedElement = String.format(button_labels_action, name);
         return new WebElementImpl($(formattedElement));
@@ -150,10 +161,6 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(formattedElement));
     }
 
-    public WebElement taskCard(String column, String title) {
-        String formattedElement = String.format(task_card, column, title);
-        return new WebElementImpl($(formattedElement));
-    }
 
     public WebElement cardColumn(String heading) {
         String formattedElement = String.format(card_column, heading);

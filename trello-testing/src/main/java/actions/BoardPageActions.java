@@ -150,6 +150,7 @@ public class BoardPageActions {
     public void deleteChecklist() {
         boardPage.buttonDeleteChecklist().getWrappedElement().waitUntilVisible().click();
         boardPage.buttonConfirmDelete().getWrappedElement().waitUntilVisible().click();
+        boardPage.checklistSection().getWrappedElement().waitUntilNotVisible();
     }
 
     /**
@@ -217,6 +218,9 @@ public class BoardPageActions {
     public void deleteAttachment() {
         boardPage.buttonDeleteAttachment().getWrappedElement().waitUntilVisible().click();
         boardPage.buttonConfirmDelete().getWrappedElement().waitUntilVisible().click();
+
+        // wait for heading Attachments invisible
+        boardPage.headingCardItem("Attachments").getWrappedElement().waitUntilNotVisible();
     }
 
     /**
@@ -260,6 +264,7 @@ public class BoardPageActions {
         String startColumn = (String) Storage.getStorage().getObject(START_COLUMN);
         String endColumn = (String) Storage.getStorage().getObject(END_COLUMN);
         new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(endColumn, title).getWrappedElement(), boardPage.cardColumn(startColumn).getWrappedElement()).perform();
+        boardPage.taskCard(startColumn, title).getWrappedElement().waitUntilVisible();
     }
 
     /**
