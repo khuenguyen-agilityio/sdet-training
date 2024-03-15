@@ -1,8 +1,11 @@
 package pages;
 
-import net.serenitybdd.core.pages.ListOfWebElementFacades;
 import net.serenitybdd.core.pages.PageObject;
+import object_behaviors.implementation.ButtonImpl;
+import object_behaviors.implementation.TextInputImpl;
 import object_behaviors.implementation.WebElementImpl;
+import object_behaviors.rules.Button;
+import object_behaviors.rules.TextInput;
 import object_behaviors.rules.WebElement;
 import org.openqa.selenium.By;
 
@@ -18,7 +21,6 @@ public class BoardPage extends PageObject {
             button_add_checklist_item = By.xpath("//input[@class='nch-button nch-button--primary confirm mod-submit-edit js-add-checklist-item']"),
             checklist_section = By.xpath("//div[@data-testid='checklist-section']"),
             checklist_heading = By.xpath("//h3[@class='current hide-on-edit']"),
-            checklist_items = By.xpath("//span[@class='checklist-item-details-text markeddown js-checkitem-name']"),
             button_delete_checklist = By.xpath("//a[@class='nch-button hide-on-edit js-confirm-delete']"),
             button_confirm_delete = By.xpath("//input[@class='js-confirm full nch-button nch-button--danger']"),
             checklist_item_container = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']"),
@@ -39,60 +41,56 @@ public class BoardPage extends PageObject {
             toast = "//div[@role='%s']/descendant::span[text()='%s']",
             card_column = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']";
 
-    public WebElement buttonLabels() {
-        return new WebElementImpl($(button_labels));
+    public Button buttonLabels() {
+        return new ButtonImpl($(button_labels));
     }
 
-    public WebElement buttonAttachment() {
-        return new WebElementImpl($(button_attachment));
+    public Button buttonAttachment() {
+        return new ButtonImpl($(button_attachment));
     }
 
-    public WebElement buttonChecklist() {
-        return new WebElementImpl($(button_checklist));
+    public Button buttonChecklist() {
+        return new ButtonImpl($(button_checklist));
     }
 
-    public WebElement inputLabelTitle() {
-        return new WebElementImpl($(input_label_title));
+    public TextInput inputLabelTitle() {
+        return new TextInputImpl($(input_label_title));
     }
 
     public WebElement cardLabel() {
         return new WebElementImpl($(card_label));
     }
 
-    public WebElement buttonRemoveColor() {
-        return new WebElementImpl($(button_remove_color));
+    public Button buttonRemoveColor() {
+        return new ButtonImpl($(button_remove_color));
     }
 
-    public WebElement inputChecklistTitle() {
-        return new WebElementImpl($(input_checklist_title));
+    public TextInput inputChecklistTitle() {
+        return new TextInputImpl($(input_checklist_title));
     }
 
-    public WebElement inputChecklistItem() {
-        return new WebElementImpl($(input_checklist_item));
+    public TextInput inputChecklistItem() {
+        return new TextInputImpl($(input_checklist_item));
     }
 
-    public WebElement buttonAddChecklistItem() {
-        return new WebElementImpl($(button_add_checklist_item));
+    public Button buttonAddChecklistItem() {
+        return new ButtonImpl($(button_add_checklist_item));
     }
 
     public WebElement checklistSection() {
         return new WebElementImpl($(checklist_section));
     }
 
-    public ListOfWebElementFacades checklistItems() {
-        return ($$(checklist_items));
-    }
-
     public WebElement checklistHeading() {
         return new WebElementImpl($(checklist_heading));
     }
 
-    public WebElement buttonDeleteChecklist() {
-        return new WebElementImpl($(button_delete_checklist));
+    public Button buttonDeleteChecklist() {
+        return new ButtonImpl($(button_delete_checklist));
     }
 
-    public WebElement buttonConfirmDelete() {
-        return new WebElementImpl($(button_confirm_delete));
+    public Button buttonConfirmDelete() {
+        return new ButtonImpl($(button_confirm_delete));
     }
 
     public WebElement checklistItemContainer() {
@@ -107,8 +105,8 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(attachment_name));
     }
 
-    public WebElement buttonDeleteAttachment() {
-        return new WebElementImpl($(button_delete_attachment));
+    public Button buttonDeleteAttachment() {
+        return new ButtonImpl($(button_delete_attachment));
     }
 
     public WebElement trelloLogo() {
@@ -125,19 +123,19 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(formattedElement));
     }
 
-    public WebElement buttonLabelsAction(String name) {
+    public Button buttonLabelsAction(String name) {
         String formattedElement = String.format(button_labels_action, name);
-        return new WebElementImpl($(formattedElement));
+        return new ButtonImpl($(formattedElement));
     }
 
-    public WebElement buttonEditLabel(String label) {
+    public Button buttonEditLabel(String label) {
         String formattedElement = String.format(button_edit_label, label);
-        return new WebElementImpl($(formattedElement));
+        return new ButtonImpl($(formattedElement));
     }
 
-    public WebElement buttonSubmit(String text) {
+    public Button buttonSubmit(String text) {
         String formattedElement = String.format(button_submit, text);
-        return new WebElementImpl($(formattedElement));
+        return new ButtonImpl($(formattedElement));
     }
 
     public WebElement cardChecklistItem(String title) {
