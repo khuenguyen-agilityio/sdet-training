@@ -1,10 +1,10 @@
 package actions;
 
 import helpers.Storage;
-import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.interactions.Actions;
 import pages.BoardPage;
 
+import java.time.Duration;
 import java.util.List;
 
 import static contants.StorageKey.*;
@@ -63,7 +63,7 @@ public class BoardPageActions {
      */
     public void verifyCardLabelTitle() {
         String label = (String) Storage.getStorage().getObject(TEST_LABEL);
-        assertThat(boardPage.cardLabel().getWrappedElement().getText()).isEqualTo(label);
+        assertThat(boardPage.cardLabel().getText()).isEqualTo(label);
     }
 
     /**
@@ -86,6 +86,7 @@ public class BoardPageActions {
         boardPage.buttonEditLabel(label).click();
         boardPage.buttonLabelsAction("Delete").click();
         boardPage.buttonLabelsAction("Delete").click();
+        boardPage.labelSection().waitUntilNotVisible(Duration.ofSeconds(30));
     }
 
     /**
@@ -118,7 +119,7 @@ public class BoardPageActions {
             boardPage.inputChecklistItem().type(item);
             boardPage.buttonAddChecklistItem().click();
             if (item != null) {
-                boardPage.cardChecklistItem(item).getWrappedElement().waitUntilVisible();
+                boardPage.cardChecklistItem(item).waitUntilVisible(Duration.ofSeconds(30));
             }
         }
         Storage.getStorage().saveObjectValue(TEST_CHECKLIST_ITEMS, items);
@@ -130,19 +131,10 @@ public class BoardPageActions {
      * Verify the items has been created with the value from Storage
      */
     public void verifyChecklist() {
-        // wait for heading visible
-        boardPage.checklistHeading().getWrappedElement().waitUntilVisible();
-        String heading = (String) Storage.getStorage().getObject(TEST_CHECKLIST_HEADING);
-
         // create compare list
         List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
 
-        SoftAssertions assertions = new SoftAssertions();
-        assertions.assertThat(boardPage.checklistHeading().getWrappedElement().getText()).isEqualTo(heading);
-        for (String item : items) {
-            assertions.assertThat(boardPage.cardChecklistItem(item).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
-        }
-        assertions.assertAll();
+        assertThat(boardPage.checklistItems().getTexts()).isEqualTo(items);
     }
 
     /**
@@ -151,7 +143,7 @@ public class BoardPageActions {
     public void deleteChecklist() {
         boardPage.buttonDeleteChecklist().click();
         boardPage.buttonConfirmDelete().click();
-        boardPage.checklistSection().getWrappedElement().waitUntilNotVisible();
+        boardPage.checklistSection().waitUntilNotVisible(Duration.ofSeconds(30));
     }
 
     /**
@@ -165,7 +157,7 @@ public class BoardPageActions {
 
         for (String item : items) {
             if (index < count) {
-                boardPage.checkboxChecklistItem(item).getWrappedElement().waitUntilVisible().click();
+                boardPage.checkboxChecklistItem(item).check();
             }
             index++;
         }
@@ -221,7 +213,7 @@ public class BoardPageActions {
         boardPage.buttonConfirmDelete().click();
 
         // wait for heading Attachments invisible
-        boardPage.headingCardItem("Attachments").getWrappedElement().waitUntilNotVisible();
+        boardPage.headingCardItem("Attachments").waitUntilNotVisible(Duration.ofSeconds(30));
     }
 
     /**
@@ -265,7 +257,7 @@ public class BoardPageActions {
         String startColumn = (String) Storage.getStorage().getObject(START_COLUMN);
         String endColumn = (String) Storage.getStorage().getObject(END_COLUMN);
         new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(endColumn, title).getWrappedElement(), boardPage.cardColumn(startColumn).getWrappedElement()).perform();
-        boardPage.taskCard(startColumn, title).getWrappedElement().waitUntilVisible();
+        boardPage.taskCard(startColumn, title).waitUntilVisible(Duration.ofSeconds(30));
     }
 
     /**

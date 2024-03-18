@@ -13,6 +13,6 @@ public class HomePageActions {
      */
     public void clickBoard(String name) {
         // wait for the board with given name visible and click
-        homePage.board(name).getWrappedElement().waitUntilVisible().click();
+        homePage.board(name).click();
     }
 }
