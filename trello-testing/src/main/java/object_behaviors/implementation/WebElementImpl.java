@@ -2,6 +2,9 @@ package object_behaviors.implementation;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import object_behaviors.rules.WebElement;
+import org.awaitility.Awaitility;
+
+import java.time.Duration;
 
 public class WebElementImpl implements WebElement {
     protected WebElementFacade element;
@@ -17,22 +20,64 @@ public class WebElementImpl implements WebElement {
 
     @Override
     public void click() {
-        getWrappedElement().click();
+        getWrappedElement().waitUntilVisible().click();
     }
 
     @Override
-    public void sendKeys(String text) {
-        getWrappedElement().clear();
-        getWrappedElement().sendKeys(text);
+    public boolean isVisible() {
+        try {
+            return getWrappedElement().isVisible();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Override
-    public void typeAndEnter(String text) {
-        getWrappedElement().typeAndEnter(text);
+    public WebElementFacade waitUntilVisible(Duration waitAtMost) {
+        Awaitility.await()
+                .atMost(waitAtMost)
+                .with()
+                .ignoreExceptions()
+                .pollInterval(Duration.ofMillis(500))
+                .until(() -> isVisible() == true);
+        return this.element;
     }
 
     @Override
-    public boolean isDisplayed() {
-        return getWrappedElement().isDisplayed();
+    public WebElementFacade waitUntilVisible(Duration waitAtMost, Duration interval) {
+        Awaitility.await()
+                .atMost(waitAtMost)
+                .with()
+                .ignoreExceptions()
+                .pollInterval(interval)
+                .until(() -> isVisible() == true);
+        return this.element;
+    }
+
+    @Override
+    public WebElementFacade waitUntilNotVisible(Duration waitAtMost) {
+        Awaitility.await()
+                .atMost(waitAtMost)
+                .with()
+                .ignoreExceptions()
+                .pollInterval(Duration.ofMillis(500))
+                .until(() -> isVisible() == false);
+        return this.element;
+    }
+
+    @Override
+    public WebElementFacade waitUntilNotVisible(Duration waitAtMost, Duration interval) {
+        Awaitility.await()
+                .atMost(waitAtMost)
+                .with()
+                .ignoreExceptions()
+                .pollInterval(interval)
+                .until(() -> isVisible() == false);
+        return this.element;
+    }
+
+    @Override
+    public String getText() {
+        return getWrappedElement().waitUntilVisible().getText();
     }
 }

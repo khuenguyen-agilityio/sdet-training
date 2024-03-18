@@ -1,4 +1,4 @@
-# Markie React Practice
+# Trello Testing Practice
 
 ## Overview
 
@@ -12,7 +12,7 @@
 
 ## Timeline
 
-- Estimate time: 6 days (Mar 8th, 2024 to Mar 15th, 2024)
+- Estimate time: 7 days (Mar 8th, 2024 to Mar 18th, 2024)
 
 ## Technical Stack
 

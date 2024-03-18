@@ -1,12 +1,8 @@
 package pages;
 
 import net.serenitybdd.core.pages.PageObject;
-import object_behaviors.implementation.ButtonImpl;
-import object_behaviors.implementation.TextInputImpl;
-import object_behaviors.implementation.WebElementImpl;
-import object_behaviors.rules.Button;
-import object_behaviors.rules.TextInput;
-import object_behaviors.rules.WebElement;
+import object_behaviors.implementation.*;
+import object_behaviors.rules.*;
 import org.openqa.selenium.By;
 
 public class BoardPage extends PageObject {
@@ -15,12 +11,13 @@ public class BoardPage extends PageObject {
             button_checklist = By.xpath("//div[@class='js-add-checklist-menu']"),
             input_label_title = By.xpath("//section[@data-testid='labels-popover-create-label-screen']/descendant::input[@type='text']"),
             card_label = By.xpath("//span[@data-testid='card-label']"),
+            label_section = By.xpath("//div[@class='card-detail-item js-card-back-labels-container u-clearfix']"),
             button_remove_color = By.xpath("//button[@type='button' and contains(text(), 'Remove color')]"),
             input_checklist_title = By.id("id-checklist"),
             input_checklist_item = By.xpath("//textarea[@class='edit field checklist-new-item-text js-new-checklist-item-input']"),
             button_add_checklist_item = By.xpath("//input[@class='nch-button nch-button--primary confirm mod-submit-edit js-add-checklist-item']"),
             checklist_section = By.xpath("//div[@data-testid='checklist-section']"),
-            checklist_heading = By.xpath("//h3[@class='current hide-on-edit']"),
+            checklist_items = By.xpath("//span[@class='checklist-item-details-text markeddown js-checkitem-name']"),
             button_delete_checklist = By.xpath("//a[@class='nch-button hide-on-edit js-confirm-delete']"),
             button_confirm_delete = By.xpath("//input[@class='js-confirm full nch-button nch-button--danger']"),
             checklist_item_container = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']"),
@@ -61,6 +58,10 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(card_label));
     }
 
+    public WebElement labelSection() {
+        return new WebElementImpl($(label_section));
+    }
+
     public Button buttonRemoveColor() {
         return new ButtonImpl($(button_remove_color));
     }
@@ -81,8 +82,8 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(checklist_section));
     }
 
-    public WebElement checklistHeading() {
-        return new WebElementImpl($(checklist_heading));
+    public WebList checklistItems() {
+        return new WebListImpl($$(checklist_items));
     }
 
     public Button buttonDeleteChecklist() {
@@ -143,9 +144,9 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(formattedElement));
     }
 
-    public WebElement checkboxChecklistItem(String title) {
+    public Checkbox checkboxChecklistItem(String title) {
         String formattedElement = String.format(checkbox_checklist_item, title);
-        return new WebElementImpl($(formattedElement));
+        return new CheckboxImpl($(formattedElement));
     }
 
     public WebElement checklistProgressPercent(int percent) {

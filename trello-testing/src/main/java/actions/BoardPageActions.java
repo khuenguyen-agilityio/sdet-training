@@ -1,10 +1,10 @@
 package actions;
 
 import helpers.Storage;
-import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.interactions.Actions;
 import pages.BoardPage;
 
+import java.time.Duration;
 import java.util.List;
 
 import static contants.StorageKey.*;
@@ -20,7 +20,7 @@ public class BoardPageActions {
      * @param column column contains the card
      */
     public void clickCardWithTitleAndColumn(String title, String column) {
-        boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().click();
+        boardPage.taskCard(column, title).waitUntilVisible(Duration.ofSeconds(30)).click();
     }
 
     /**
@@ -63,7 +63,7 @@ public class BoardPageActions {
      */
     public void verifyCardLabelTitle() {
         String label = (String) Storage.getStorage().getObject(TEST_LABEL);
-        assertThat(boardPage.cardLabel().getWrappedElement().getText()).isEqualTo(label);
+        assertThat(boardPage.cardLabel().getText()).isEqualTo(label);
     }
 
     /**
@@ -86,6 +86,7 @@ public class BoardPageActions {
         boardPage.buttonEditLabel(label).click();
         boardPage.buttonLabelsAction("Delete").click();
         boardPage.buttonLabelsAction("Delete").click();
+        boardPage.labelSection().waitUntilNotVisible(Duration.ofSeconds(30));
     }
 
     /**
@@ -118,7 +119,7 @@ public class BoardPageActions {
             boardPage.inputChecklistItem().type(item);
             boardPage.buttonAddChecklistItem().click();
             if (item != null) {
-                boardPage.cardChecklistItem(item).getWrappedElement().waitUntilVisible();
+                boardPage.cardChecklistItem(item).waitUntilVisible(Duration.ofSeconds(30));
             }
         }
         Storage.getStorage().saveObjectValue(TEST_CHECKLIST_ITEMS, items);
@@ -130,19 +131,10 @@ public class BoardPageActions {
      * Verify the items has been created with the value from Storage
      */
     public void verifyChecklist() {
-        // wait for heading visible
-        boardPage.checklistHeading().getWrappedElement().waitUntilVisible();
-        String heading = (String) Storage.getStorage().getObject(TEST_CHECKLIST_HEADING);
-
         // create compare list
         List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
 
-        SoftAssertions assertions = new SoftAssertions();
-        assertions.assertThat(boardPage.checklistHeading().getWrappedElement().getText()).isEqualTo(heading);
-        for (String item : items) {
-            assertions.assertThat(boardPage.cardChecklistItem(item).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
-        }
-        assertions.assertAll();
+        assertThat(boardPage.checklistItems().getTexts()).isEqualTo(items);
     }
 
     /**
@@ -151,7 +143,7 @@ public class BoardPageActions {
     public void deleteChecklist() {
         boardPage.buttonDeleteChecklist().click();
         boardPage.buttonConfirmDelete().click();
-        boardPage.checklistSection().getWrappedElement().waitUntilNotVisible();
+        boardPage.checklistSection().waitUntilNotVisible(Duration.ofSeconds(30));
     }
 
     /**
@@ -165,7 +157,7 @@ public class BoardPageActions {
 
         for (String item : items) {
             if (index < count) {
-                boardPage.checkboxChecklistItem(item).getWrappedElement().waitUntilVisible().click();
+                boardPage.checkboxChecklistItem(item).check();
             }
             index++;
         }
@@ -177,14 +169,14 @@ public class BoardPageActions {
      * @param percent
      */
     public void verifyChecklistProgress(int percent) {
-        assertThat(boardPage.checklistProgressPercent(percent).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+        assertThat(boardPage.checklistProgressPercent(percent).isVisible()).isTrue();
     }
 
     /**
      * Verify the checklist items is empty (no item in the list)
      */
     public void verifyChecklistItemsIsEmpty() {
-        assertThat(boardPage.checklistItemContainer().getWrappedElement().getText().isEmpty()).isTrue();
+        assertThat(boardPage.checklistItemContainer().getText().isEmpty()).isTrue();
     }
 
     /**
@@ -209,7 +201,7 @@ public class BoardPageActions {
      */
     public void verifyAttachmentName() {
         String filePath = (String) Storage.getStorage().getObject(ATTACHMENT_PATH);
-        String displayName = boardPage.attachmentName().getWrappedElement().waitUntilVisible().getText();
+        String displayName = boardPage.attachmentName().getText();
         assertThat(filePath).contains(displayName);
     }
 
@@ -221,7 +213,7 @@ public class BoardPageActions {
         boardPage.buttonConfirmDelete().click();
 
         // wait for heading Attachments invisible
-        boardPage.headingCardItem("Attachments").getWrappedElement().waitUntilNotVisible();
+        boardPage.headingCardItem("Attachments").waitUntilNotVisible(Duration.ofSeconds(30));
     }
 
     /**
@@ -231,7 +223,7 @@ public class BoardPageActions {
      * @param message the message displayed
      */
     public void verifyToastDisplayed(String type, String message) {
-        assertThat(boardPage.toast(type, message).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+        assertThat(boardPage.toast(type, message).isVisible()).isTrue();
     }
 
     /**
@@ -254,7 +246,7 @@ public class BoardPageActions {
     public void verifyCardHasBeenMoved() {
         String title = (String) Storage.getStorage().getObject(CARD_TITLE);
         String column = (String) Storage.getStorage().getObject(END_COLUMN);
-        assertThat(boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+        assertThat(boardPage.taskCard(column, title).waitUntilVisible(Duration.ofSeconds(30)).isVisible()).isTrue();
     }
 
     /**
@@ -264,8 +256,8 @@ public class BoardPageActions {
         String title = (String) Storage.getStorage().getObject(CARD_TITLE);
         String startColumn = (String) Storage.getStorage().getObject(START_COLUMN);
         String endColumn = (String) Storage.getStorage().getObject(END_COLUMN);
-        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(endColumn, title).getWrappedElement(), boardPage.cardColumn(startColumn).getWrappedElement()).perform();
-        boardPage.taskCard(startColumn, title).getWrappedElement().waitUntilVisible();
+        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(endColumn, title).waitUntilVisible(Duration.ofSeconds(30)), boardPage.cardColumn(startColumn).waitUntilVisible(Duration.ofSeconds(30))).perform();
+        boardPage.taskCard(startColumn, title).waitUntilVisible(Duration.ofSeconds(30));
     }
 
     /**
@@ -274,7 +266,7 @@ public class BoardPageActions {
     public void verifyCardHasNotBeenMoved() {
         String title = (String) Storage.getStorage().getObject(CARD_TITLE);
         String column = (String) Storage.getStorage().getObject(START_COLUMN);
-        assertThat(boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+        assertThat(boardPage.taskCard(column, title).waitUntilVisible(Duration.ofSeconds(30)).isVisible()).isTrue();
     }
 
     /**
@@ -284,7 +276,7 @@ public class BoardPageActions {
      * @param column the column of the card
      */
     public void dragCardToTrelloLogo(String title, String column) {
-        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(column, title).getWrappedElement(), boardPage.trelloLogo().getWrappedElement()).perform();
+        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(column, title).waitUntilVisible(Duration.ofSeconds(30)), boardPage.trelloLogo().waitUntilVisible(Duration.ofSeconds(30))).perform();
         Storage.getStorage().saveObjectValue(CARD_TITLE, title);
         Storage.getStorage().saveObjectValue(START_COLUMN, column);
     }

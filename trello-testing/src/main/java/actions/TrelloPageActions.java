@@ -22,6 +22,6 @@ public class TrelloPageActions {
         Serenity.getDriver().get(url);
 
         // wait for login button visible and click on it
-        trelloPage.buttonLogin("Log in").getWrappedElement().waitUntilVisible().click();
+        trelloPage.buttonLogin("Log in").click();
     }
 }
