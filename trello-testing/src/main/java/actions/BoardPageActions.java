@@ -20,7 +20,7 @@ public class BoardPageActions {
      * @param column column contains the card
      */
     public void clickCardWithTitleAndColumn(String title, String column) {
-        boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().click();
+        boardPage.taskCard(column, title).waitUntilVisible(Duration.ofSeconds(30)).click();
     }
 
     /**
@@ -169,14 +169,14 @@ public class BoardPageActions {
      * @param percent
      */
     public void verifyChecklistProgress(int percent) {
-        assertThat(boardPage.checklistProgressPercent(percent).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+        assertThat(boardPage.checklistProgressPercent(percent).isVisible()).isTrue();
     }
 
     /**
      * Verify the checklist items is empty (no item in the list)
      */
     public void verifyChecklistItemsIsEmpty() {
-        assertThat(boardPage.checklistItemContainer().getWrappedElement().getText().isEmpty()).isTrue();
+        assertThat(boardPage.checklistItemContainer().getText().isEmpty()).isTrue();
     }
 
     /**
@@ -201,7 +201,7 @@ public class BoardPageActions {
      */
     public void verifyAttachmentName() {
         String filePath = (String) Storage.getStorage().getObject(ATTACHMENT_PATH);
-        String displayName = boardPage.attachmentName().getWrappedElement().waitUntilVisible().getText();
+        String displayName = boardPage.attachmentName().getText();
         assertThat(filePath).contains(displayName);
     }
 
@@ -223,7 +223,7 @@ public class BoardPageActions {
      * @param message the message displayed
      */
     public void verifyToastDisplayed(String type, String message) {
-        assertThat(boardPage.toast(type, message).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+        assertThat(boardPage.toast(type, message).isVisible()).isTrue();
     }
 
     /**
@@ -246,7 +246,7 @@ public class BoardPageActions {
     public void verifyCardHasBeenMoved() {
         String title = (String) Storage.getStorage().getObject(CARD_TITLE);
         String column = (String) Storage.getStorage().getObject(END_COLUMN);
-        assertThat(boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+        assertThat(boardPage.taskCard(column, title).waitUntilVisible(Duration.ofSeconds(30)).isVisible()).isTrue();
     }
 
     /**
@@ -256,7 +256,7 @@ public class BoardPageActions {
         String title = (String) Storage.getStorage().getObject(CARD_TITLE);
         String startColumn = (String) Storage.getStorage().getObject(START_COLUMN);
         String endColumn = (String) Storage.getStorage().getObject(END_COLUMN);
-        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(endColumn, title).getWrappedElement(), boardPage.cardColumn(startColumn).getWrappedElement()).perform();
+        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(endColumn, title).waitUntilVisible(Duration.ofSeconds(30)), boardPage.cardColumn(startColumn).waitUntilVisible(Duration.ofSeconds(30))).perform();
         boardPage.taskCard(startColumn, title).waitUntilVisible(Duration.ofSeconds(30));
     }
 
@@ -266,7 +266,7 @@ public class BoardPageActions {
     public void verifyCardHasNotBeenMoved() {
         String title = (String) Storage.getStorage().getObject(CARD_TITLE);
         String column = (String) Storage.getStorage().getObject(START_COLUMN);
-        assertThat(boardPage.taskCard(column, title).getWrappedElement().waitUntilVisible().isDisplayed()).isTrue();
+        assertThat(boardPage.taskCard(column, title).waitUntilVisible(Duration.ofSeconds(30)).isVisible()).isTrue();
     }
 
     /**
@@ -276,7 +276,7 @@ public class BoardPageActions {
      * @param column the column of the card
      */
     public void dragCardToTrelloLogo(String title, String column) {
-        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(column, title).getWrappedElement(), boardPage.trelloLogo().getWrappedElement()).perform();
+        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(column, title).waitUntilVisible(Duration.ofSeconds(30)), boardPage.trelloLogo().waitUntilVisible(Duration.ofSeconds(30))).perform();
         Storage.getStorage().saveObjectValue(CARD_TITLE, title);
         Storage.getStorage().saveObjectValue(START_COLUMN, column);
     }

@@ -11,13 +11,13 @@ public interface WebElement {
 
     boolean isVisible();
 
-    void waitUntilVisible(Duration waitAtMost);
+    WebElementFacade waitUntilVisible(Duration waitAtMost);
 
-    void waitUntilVisible(Duration waitAtMost, Duration interval);
+    WebElementFacade waitUntilVisible(Duration waitAtMost, Duration interval);
 
-    void waitUntilNotVisible(Duration waitAtMost);
+    WebElementFacade waitUntilNotVisible(Duration waitAtMost);
 
-    void waitUntilNotVisible(Duration waitAtMost, Duration interval);
+    WebElementFacade waitUntilNotVisible(Duration waitAtMost, Duration interval);
 
     String getText();
 }

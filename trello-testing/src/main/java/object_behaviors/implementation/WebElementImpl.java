@@ -20,7 +20,7 @@ public class WebElementImpl implements WebElement {
 
     @Override
     public void click() {
-        getWrappedElement().click();
+        getWrappedElement().waitUntilVisible().click();
     }
 
     @Override
@@ -33,47 +33,51 @@ public class WebElementImpl implements WebElement {
     }
 
     @Override
-    public void waitUntilVisible(Duration waitAtMost) {
+    public WebElementFacade waitUntilVisible(Duration waitAtMost) {
         Awaitility.await()
                 .atMost(waitAtMost)
                 .with()
                 .ignoreExceptions()
                 .pollInterval(Duration.ofMillis(500))
                 .until(() -> isVisible() == true);
+        return this.element;
     }
 
     @Override
-    public void waitUntilVisible(Duration waitAtMost, Duration interval) {
+    public WebElementFacade waitUntilVisible(Duration waitAtMost, Duration interval) {
         Awaitility.await()
                 .atMost(waitAtMost)
                 .with()
                 .ignoreExceptions()
                 .pollInterval(interval)
                 .until(() -> isVisible() == true);
+        return this.element;
     }
 
     @Override
-    public void waitUntilNotVisible(Duration waitAtMost) {
+    public WebElementFacade waitUntilNotVisible(Duration waitAtMost) {
         Awaitility.await()
                 .atMost(waitAtMost)
                 .with()
                 .ignoreExceptions()
                 .pollInterval(Duration.ofMillis(500))
                 .until(() -> isVisible() == false);
+        return this.element;
     }
 
     @Override
-    public void waitUntilNotVisible(Duration waitAtMost, Duration interval) {
+    public WebElementFacade waitUntilNotVisible(Duration waitAtMost, Duration interval) {
         Awaitility.await()
                 .atMost(waitAtMost)
                 .with()
                 .ignoreExceptions()
                 .pollInterval(interval)
                 .until(() -> isVisible() == false);
+        return this.element;
     }
 
     @Override
     public String getText() {
-        return getWrappedElement().getText();
+        return getWrappedElement().waitUntilVisible().getText();
     }
 }

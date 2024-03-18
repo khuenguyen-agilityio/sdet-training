@@ -27,7 +27,7 @@ public class ButtonImpl implements Button {
     @Override
     public boolean isDisabled() {
         try {
-            return getWrappedElement().isDisabled();
+            return getWrappedElement().waitUntilVisible().isDisabled();
         } catch (Exception e) {
             return false;
         }
