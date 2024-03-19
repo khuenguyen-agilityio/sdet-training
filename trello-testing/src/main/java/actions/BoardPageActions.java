@@ -119,7 +119,7 @@ public class BoardPageActions {
             boardPage.inputChecklistItem().type(item);
             boardPage.buttonAddChecklistItem().click();
             if (item != null) {
-                boardPage.cardChecklistItem(item).waitUntilVisible(Duration.ofSeconds(30));
+                boardPage.cardChecklistItem(item).waitUntilVisible(Duration.ofSeconds(30), Duration.ofSeconds(1));
             }
         }
         Storage.getStorage().saveObjectValue(TEST_CHECKLIST_ITEMS, items);
