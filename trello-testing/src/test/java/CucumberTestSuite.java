@@ -21,7 +21,7 @@ import static io.cucumber.junit.platform.engine.Constants.*;
  *  - use junit 5 execution as IncludeTags below, when simple execution
  *  - in console shows only one scenario execution
  */
-//@IncludeTags("MovingCards")
+//@IncludeTags("101")
 //@ExcludeTags("tag01")
 public class CucumberTestSuite {
 }
