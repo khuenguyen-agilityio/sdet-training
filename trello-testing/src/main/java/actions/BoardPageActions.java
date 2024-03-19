@@ -34,7 +34,7 @@ public class BoardPageActions {
     /**
      * Click on button label action with given text
      *
-     * @param text
+     * @param text the text in the action button
      */
     public void clickButtonLabelAction(String text) {
         boardPage.buttonLabelsAction(text).click();
@@ -50,13 +50,13 @@ public class BoardPageActions {
     /**
      * Create new card with given label and save label to Storage
      *
-     * @param label
+     * @param title the title of the label
      */
-    public void createNewCardLabel(String label) {
-        boardPage.inputLabelTitle().type(label);
+    public void createNewCardLabel(String title) {
+        boardPage.inputLabelTitle().type(title);
         boardPage.buttonLabelsAction("Create").click();
 
-        Storage.getStorage().saveObjectValue(TEST_LABEL, label);
+        Storage.getStorage().saveObjectValue(TEST_LABEL, title);
     }
 
     /**
@@ -70,7 +70,7 @@ public class BoardPageActions {
     /**
      * Verify the card with given title is disabled
      *
-     * @param title
+     * @param title the title of the button
      */
     public void verifyButtonLabelsActionIsDisabled(String title) {
         assertThat(boardPage.buttonLabelsAction(title).isDisabled()).isTrue();
@@ -132,10 +132,10 @@ public class BoardPageActions {
      * Verify the items has been created with the value from Storage
      */
     public void verifyChecklist() {
-        // create compare list
         List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
         SoftAssertions assertions = new SoftAssertions();
 
+        // Browse all item from Storage and verify it contains in Web list
         items.forEach(item -> {
             assertions.assertThat(boardPage.textChecklistItems().isContainElementWithText(item)).isTrue();
         });
@@ -163,7 +163,7 @@ public class BoardPageActions {
     /**
      * Verify the checklist progress percent displayed the given percent
      *
-     * @param percent
+     * @param percent percentage display
      */
     public void verifyChecklistProgress(int percent) {
         assertThat(boardPage.checklistProgressPercent(percent).isVisible()).isTrue();
@@ -186,7 +186,7 @@ public class BoardPageActions {
     /**
      * Upload file from path and save it to Storage
      *
-     * @param path
+     * @param path path of file uploaded
      */
     public void uploadAttachment(String path) {
         boardPage.uploadAttachment(path);
@@ -231,7 +231,7 @@ public class BoardPageActions {
      * @param endColumn   the heading of the end column
      */
     public void dragCardThroughColumns(String title, String startColumn, String endColumn) {
-        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(startColumn, title).getWrappedElement(), boardPage.cardColumn(endColumn).getWrappedElement()).perform();
+        new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(startColumn, title).waitUntilVisible(Duration.ofSeconds(30)), boardPage.cardColumn(endColumn).waitUntilVisible(Duration.ofSeconds(30))).perform();
         Storage.getStorage().saveObjectValue(CARD_TITLE, title);
         Storage.getStorage().saveObjectValue(START_COLUMN, startColumn);
         Storage.getStorage().saveObjectValue(END_COLUMN, endColumn);

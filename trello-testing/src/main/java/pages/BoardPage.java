@@ -158,8 +158,7 @@ public class BoardPage extends PageObject {
         String formattedElement = String.format(toast, type, message);
         return new WebElementImpl($(formattedElement));
     }
-
-
+    
     public WebElement cardColumn(String heading) {
         String formattedElement = String.format(card_column, heading);
         return new WebElementImpl($(formattedElement));
