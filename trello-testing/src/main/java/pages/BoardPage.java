@@ -34,7 +34,7 @@ public class BoardPage extends PageObject {
             trello_logo = By.xpath("//nav[@id='header']/a");
 
     private final String
-            task_card = "//h2[@data-testid='list-name' and text()='%s']/ancestor::div[@data-testid='list']/descendant::a[text()='%s']/ancestor::li[@data-testid='list-card']",
+            task_card = "//div[(h2[text()='%s'])]/../../ol/li[div//a[text()='%s']]",
             heading_card_item = "//div[contains(@class, 'window-module-title')]/descendant::h3[text()='%s']",
             button_labels_action = "//button[@type='button' and text()='%s']",
             button_submit = "//button[@type='submit' and text()='%s']",
@@ -108,7 +108,7 @@ public class BoardPage extends PageObject {
     }
 
     public void uploadAttachment(String path) {
-        String filePath = System.getProperty("user.dir") + path;
+        String filePath = System.getProperty("user.dir") + "/src/test/resources/files/" + path;
         upload(filePath).to($(input_file_upload));
     }
 
@@ -159,7 +159,7 @@ public class BoardPage extends PageObject {
         String formattedElement = String.format(toast, type, message);
         return new WebElementImpl($(formattedElement));
     }
-    
+
     public WebElement cardColumn(String heading) {
         String formattedElement = String.format(card_column, heading);
         return new WebElementImpl($(formattedElement));

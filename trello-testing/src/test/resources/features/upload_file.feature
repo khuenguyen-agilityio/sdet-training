@@ -10,10 +10,10 @@ Feature: User upload attachment
 
   @201 @delete_attachment
   Scenario: User upload attachment successfully
-    When The user upload file with path "/src/test/resources/files/cat.jpg"
+    When The user upload file with path "cat.jpg"
     Then Verify the user is able to see the file has been uploaded
 
   @202
   Scenario: User upload attachment successfully in case user input large file
-    When The user upload file with path "/src/test/resources/files/11MB.bin"
+    When The user upload file with path "11MB.bin"
     Then Verify the user is able to see "alert" toast with message "File size exceeds 10MB limit"
