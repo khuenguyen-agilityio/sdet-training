@@ -108,7 +108,8 @@ public class BoardPage extends PageObject {
     }
 
     public void uploadAttachment(String path) {
-        upload(path).to($(input_file_upload));
+        String filePath = System.getProperty("user.dir") + path;
+        upload(filePath).to($(input_file_upload));
     }
 
     public WebElement attachmentName() {
