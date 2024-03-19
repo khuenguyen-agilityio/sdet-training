@@ -1,6 +1,7 @@
 package actions;
 
 import helpers.Storage;
+import org.assertj.core.api.SoftAssertions;
 import org.openqa.selenium.interactions.Actions;
 import pages.BoardPage;
 
@@ -111,6 +112,7 @@ public class BoardPageActions {
     /**
      * Create checklist items with following items
      * Browsing through item in the items list to create it
+     * Waiting for item has been created
      *
      * @param items the list of item will be created
      */
@@ -118,9 +120,8 @@ public class BoardPageActions {
         for (String item : items) {
             boardPage.inputChecklistItem().type(item);
             boardPage.buttonAddChecklistItem().click();
-            if (item != null) {
-                boardPage.cardChecklistItem(item).waitUntilVisible(Duration.ofSeconds(30), Duration.ofSeconds(1));
-            }
+            if (item != null)
+                boardPage.textChecklistItems().waitUntilContainElementWithTextVisible(Duration.ofSeconds(30), Duration.ofSeconds(1), item);
         }
         Storage.getStorage().saveObjectValue(TEST_CHECKLIST_ITEMS, items);
     }
@@ -133,8 +134,12 @@ public class BoardPageActions {
     public void verifyChecklist() {
         // create compare list
         List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
+        SoftAssertions assertions = new SoftAssertions();
 
-        assertThat(boardPage.checklistItems().getTexts()).isEqualTo(items);
+        items.forEach(item -> {
+            assertions.assertThat(boardPage.textChecklistItems().isContainElementWithText(item)).isTrue();
+        });
+        assertions.assertAll();
     }
 
     /**
@@ -152,15 +157,7 @@ public class BoardPageActions {
      * @param count the number of checkbox will be ticked
      */
     public void tickCheckboxItems(int count) {
-        int index = 0;
-        List<String> items = (List<String>) Storage.getStorage().getObject(TEST_CHECKLIST_ITEMS);
-
-        for (String item : items) {
-            if (index < count) {
-                boardPage.checkboxChecklistItem(item).check();
-            }
-            index++;
-        }
+        boardPage.checkboxChecklistItems().selectElements(count);
     }
 
     /**

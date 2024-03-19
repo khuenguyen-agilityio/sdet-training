@@ -1,8 +1,14 @@
 package pages;
 
 import net.serenitybdd.core.pages.PageObject;
-import object_behaviors.implementation.*;
-import object_behaviors.rules.*;
+import object_behaviors.implementation.ButtonImpl;
+import object_behaviors.implementation.TextInputImpl;
+import object_behaviors.implementation.WebElementImpl;
+import object_behaviors.implementation.WebListImpl;
+import object_behaviors.rules.Button;
+import object_behaviors.rules.TextInput;
+import object_behaviors.rules.WebElement;
+import object_behaviors.rules.WebList;
 import org.openqa.selenium.By;
 
 public class BoardPage extends PageObject {
@@ -17,7 +23,8 @@ public class BoardPage extends PageObject {
             input_checklist_item = By.xpath("//textarea[@class='edit field checklist-new-item-text js-new-checklist-item-input']"),
             button_add_checklist_item = By.xpath("//input[@class='nch-button nch-button--primary confirm mod-submit-edit js-add-checklist-item']"),
             checklist_section = By.xpath("//div[@data-testid='checklist-section']"),
-            checklist_items = By.xpath("//span[@class='checklist-item-details-text markeddown js-checkitem-name']"),
+            checkbox_checklist_items = By.xpath("//div[@data-testid='checklist-item-checkbox']/input[@type='checkbox']"),
+            text_checklist_items = By.xpath("//span[@class='checklist-item-details-text markeddown js-checkitem-name']"),
             button_delete_checklist = By.xpath("//a[@class='nch-button hide-on-edit js-confirm-delete']"),
             button_confirm_delete = By.xpath("//input[@class='js-confirm full nch-button nch-button--danger']"),
             checklist_item_container = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']"),
@@ -32,8 +39,6 @@ public class BoardPage extends PageObject {
             button_labels_action = "//button[@type='button' and text() = '%s']",
             button_submit = "//button[@type='submit' and text() = '%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
-            card_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']",
-            checkbox_checklist_item = "//span[@class='checklist-item-details-text markeddown js-checkitem-name' and text()='%s']/ancestor::div[@class='checklist-item no-assignee no-due']/descendant::input[@type='checkbox']",
             checklist_progress_bar = "//span[@class='checklist-progress-percentage js-checklist-progress-percent' and text()='%s']",
             toast = "//div[@role='%s']/descendant::span[text()='%s']",
             card_column = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']";
@@ -82,8 +87,12 @@ public class BoardPage extends PageObject {
         return new WebElementImpl($(checklist_section));
     }
 
-    public WebList checklistItems() {
-        return new WebListImpl($$(checklist_items));
+    public WebList checkboxChecklistItems() {
+        return new WebListImpl($$(checkbox_checklist_items));
+    }
+
+    public WebList textChecklistItems() {
+        return new WebListImpl($$(text_checklist_items));
     }
 
     public Button buttonDeleteChecklist() {
@@ -137,16 +146,6 @@ public class BoardPage extends PageObject {
     public Button buttonSubmit(String text) {
         String formattedElement = String.format(button_submit, text);
         return new ButtonImpl($(formattedElement));
-    }
-
-    public WebElement cardChecklistItem(String title) {
-        String formattedElement = String.format(card_checklist_item, title);
-        return new WebElementImpl($(formattedElement));
-    }
-
-    public Checkbox checkboxChecklistItem(String title) {
-        String formattedElement = String.format(checkbox_checklist_item, title);
-        return new CheckboxImpl($(formattedElement));
     }
 
     public WebElement checklistProgressPercent(int percent) {
