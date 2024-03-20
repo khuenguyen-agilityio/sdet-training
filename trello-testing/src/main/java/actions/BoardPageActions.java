@@ -56,14 +56,14 @@ public class BoardPageActions {
         boardPage.inputLabelTitle().type(title);
         boardPage.buttonLabelsAction("Create").click();
 
-        Storage.getStorage().saveObjectValue(TEST_LABEL, title);
+        Storage.getStorage().saveValue(TEST_LABEL, title);
     }
 
     /**
      * Verify new card label title by compare it with data form Storage
      */
     public void verifyCardLabelTitle() {
-        String label = (String) Storage.getStorage().getObject(TEST_LABEL);
+        String label = Storage.getStorage().getValue(TEST_LABEL);
         assertThat(boardPage.cardLabel().getText()).isEqualTo(label);
     }
 
@@ -81,7 +81,7 @@ public class BoardPageActions {
      */
     public void deleteTestLabel() {
         // get label from storage
-        String label = (String) Storage.getStorage().getObject(TEST_LABEL);
+        String label = Storage.getStorage().getValue(TEST_LABEL);
 
         // wait for button edit visible and click delete button twice
         boardPage.buttonEditLabel(label).click();
@@ -100,7 +100,7 @@ public class BoardPageActions {
     /**
      * Create new checklist with given title
      *
-     * @param title
+     * @param title title of checklist
      */
     public void createNewChecklist(String title) {
         boardPage.inputChecklistTitle().clearAndType(title);
@@ -136,9 +136,7 @@ public class BoardPageActions {
         SoftAssertions assertions = new SoftAssertions();
 
         // Browse all item from Storage and verify it contains in Web list
-        items.forEach(item -> {
-            assertions.assertThat(boardPage.textChecklistItems().isContainElementWithText(item)).isTrue();
-        });
+        items.forEach(item -> assertions.assertThat(boardPage.textChecklistItems().isContainElementWithText(item)).isTrue());
         assertions.assertAll();
     }
 
@@ -190,14 +188,14 @@ public class BoardPageActions {
      */
     public void uploadAttachment(String path) {
         boardPage.uploadAttachment(path);
-        Storage.getStorage().saveObjectValue(ATTACHMENT_PATH, path);
+        Storage.getStorage().saveValue(ATTACHMENT_PATH, path);
     }
 
     /**
      * Verify the file path from Storage contain the file displayed
      */
     public void verifyAttachmentName() {
-        String filePath = (String) Storage.getStorage().getObject(ATTACHMENT_PATH);
+        String filePath = Storage.getStorage().getValue(ATTACHMENT_PATH);
         String displayName = boardPage.attachmentName().getText();
         assertThat(filePath).contains(displayName);
     }
@@ -232,17 +230,17 @@ public class BoardPageActions {
      */
     public void dragCardThroughColumns(String title, String startColumn, String endColumn) {
         new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(startColumn, title).waitUntilVisible(Duration.ofSeconds(30)), boardPage.cardColumn(endColumn).waitUntilVisible(Duration.ofSeconds(30))).perform();
-        Storage.getStorage().saveObjectValue(CARD_TITLE, title);
-        Storage.getStorage().saveObjectValue(START_COLUMN, startColumn);
-        Storage.getStorage().saveObjectValue(END_COLUMN, endColumn);
+        Storage.getStorage().saveValue(CARD_TITLE, title);
+        Storage.getStorage().saveValue(START_COLUMN, startColumn);
+        Storage.getStorage().saveValue(END_COLUMN, endColumn);
     }
 
     /**
      * Verify the card has been move to the end column
      */
     public void verifyCardHasBeenMoved() {
-        String title = (String) Storage.getStorage().getObject(CARD_TITLE);
-        String column = (String) Storage.getStorage().getObject(END_COLUMN);
+        String title = Storage.getStorage().getValue(CARD_TITLE);
+        String column = Storage.getStorage().getValue(END_COLUMN);
         assertThat(boardPage.taskCard(column, title).waitUntilVisible(Duration.ofSeconds(30)).isVisible()).isTrue();
     }
 
@@ -250,9 +248,9 @@ public class BoardPageActions {
      * Move back card from end column to the start column
      */
     public void moveBackCard() {
-        String title = (String) Storage.getStorage().getObject(CARD_TITLE);
-        String startColumn = (String) Storage.getStorage().getObject(START_COLUMN);
-        String endColumn = (String) Storage.getStorage().getObject(END_COLUMN);
+        String title = Storage.getStorage().getValue(CARD_TITLE);
+        String startColumn = Storage.getStorage().getValue(START_COLUMN);
+        String endColumn = Storage.getStorage().getValue(END_COLUMN);
         new Actions(boardPage.getDriver()).dragAndDrop(boardPage.taskCard(endColumn, title).waitUntilVisible(Duration.ofSeconds(30)), boardPage.cardColumn(startColumn).waitUntilVisible(Duration.ofSeconds(30))).perform();
         boardPage.taskCard(startColumn, title).waitUntilVisible(Duration.ofSeconds(30));
     }
@@ -261,8 +259,8 @@ public class BoardPageActions {
      * Verify the card has not been moved and stay in start column
      */
     public void verifyCardHasNotBeenMoved() {
-        String title = (String) Storage.getStorage().getObject(CARD_TITLE);
-        String column = (String) Storage.getStorage().getObject(START_COLUMN);
+        String title = Storage.getStorage().getValue(CARD_TITLE);
+        String column = Storage.getStorage().getValue(START_COLUMN);
         assertThat(boardPage.taskCard(column, title).waitUntilVisible(Duration.ofSeconds(30)).isVisible()).isTrue();
     }
 

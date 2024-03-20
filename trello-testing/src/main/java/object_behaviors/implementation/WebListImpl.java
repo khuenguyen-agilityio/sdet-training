@@ -24,7 +24,7 @@ public class WebListImpl implements WebList {
 
     @Override
     public List<String> getTexts() {
-        List<String> lists = new ArrayList<String>();
+        List<String> lists = new ArrayList<>();
         getListWrappedElements().forEach(element -> lists.add(element.getText()));
         return lists;
     }
@@ -32,8 +32,8 @@ public class WebListImpl implements WebList {
     @Override
     public boolean isContainElementWithText(String text) {
         AtomicBoolean isContain = new AtomicBoolean(false);
-        getListWrappedElements().forEach(elements -> {
-            if (elements.getWrappedElement().getText().equals(text)) {
+        getListWrappedElements().forEach(element -> {
+            if (element.getWrappedElement().getText().equals(text)) {
                 isContain.set(true);
             }
         });
@@ -47,7 +47,7 @@ public class WebListImpl implements WebList {
                 .with()
                 .ignoreExceptions()
                 .pollInterval(interval)
-                .until(() -> isContainElementWithText(text) == true);
+                .until(() -> isContainElementWithText(text));
         return this.elements;
     }
 
