@@ -13,35 +13,35 @@ import org.openqa.selenium.By;
 
 public class BoardPage extends PageObject {
     private final By button_labels = By.xpath("//a[@class='button-link js-edit-labels']"),
-            button_attachment = By.xpath("//div[@class='js-new-card-attachment-picker-react-root-for-sidebar']"),
-            button_checklist = By.xpath("//div[@class='js-add-checklist-menu']"),
+            button_attachment = By.xpath("//div[contains(@class, 'js-new-card-attachment-picker-react-root-for-sidebar')]"),
+            button_checklist = By.xpath("//div[contains(@class, 'js-add-checklist-menu')]"),
             input_label_title = By.xpath("//section[@data-testid='labels-popover-create-label-screen']/descendant::input[@type='text']"),
             card_label = By.xpath("//span[@data-testid='card-label']"),
-            label_section = By.xpath("//div[@class='card-detail-item js-card-back-labels-container u-clearfix']"),
+            label_section = By.xpath("//div[contains(@class, 'js-card-back-labels-container')]"),
             button_remove_color = By.xpath("//button[@type='button' and contains(text(), 'Remove color')]"),
             input_checklist_title = By.id("id-checklist"),
-            input_checklist_item = By.xpath("//textarea[@class='edit field checklist-new-item-text js-new-checklist-item-input']"),
-            button_add_checklist_item = By.xpath("//input[@class='nch-button nch-button--primary confirm mod-submit-edit js-add-checklist-item']"),
+            input_checklist_item = By.xpath("//textarea[contains(@class, 'js-new-checklist-item-input')]"),
+            button_add_checklist_item = By.xpath("//input[contains(@class, 'js-add-checklist-item')]"),
             checklist_section = By.xpath("//div[@data-testid='checklist-section']"),
             checkbox_checklist_items = By.xpath("//div[@data-testid='checklist-item-checkbox']/input[@type='checkbox']"),
-            text_checklist_items = By.xpath("//span[@class='checklist-item-details-text markeddown js-checkitem-name']"),
-            button_delete_checklist = By.xpath("//a[@class='nch-button hide-on-edit js-confirm-delete']"),
-            button_confirm_delete = By.xpath("//input[@class='js-confirm full nch-button nch-button--danger']"),
-            checklist_item_container = By.xpath("//div[@class='checklist-items-list js-checklist-items-list js-no-higher-edits ui-sortable']"),
+            text_checklist_items = By.xpath("//span[contains(@class, 'js-checkitem-name')]"),
+            button_delete_checklist = By.xpath("//a[contains(@class, 'js-confirm-delete')]"),
+            button_confirm_delete = By.xpath("//input[contains(@class, 'js-confirm')]"),
+            checklist_item_container = By.xpath("//div[contains(@class, 'checklist-items-list')]"),
             input_file_upload = By.id("card-attachment-file-picker"),
-            attachment_name = By.xpath("//span[@class='attachment-thumbnail-name']"),
-            button_delete_attachment = By.xpath("//a[@class='attachment-thumbnail-details-title-options-item dark-hover js-confirm-delete']"),
+            attachment_name = By.xpath("//span[contains(@class, 'attachment-thumbnail-name')]"),
+            button_delete_attachment = By.xpath("//a[contains(@class, 'js-confirm-delete')]"),
             trello_logo = By.xpath("//nav[@id='header']/a");
 
     private final String
-            task_card = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']/descendant::a[text()='%s']/ancestor::li[@data-testid='list-card']",
-            heading_card_item = "//div[@class='window-module-title window-module-title-no-divider card-detail-activity']/descendant::h3[text()='%s']",
-            button_labels_action = "//button[@type='button' and text() = '%s']",
-            button_submit = "//button[@type='submit' and text() = '%s']",
+            task_card = "//div[(h2[text()='%s'])]/../../ol/li[div//a[text()='%s']]",
+            heading_card_item = "//div[contains(@class, 'window-module-title')]/descendant::h3[text()='%s']",
+            button_labels_action = "//button[@type='button' and text()='%s']",
+            button_submit = "//button[@type='submit' and text()='%s']",
             button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
-            checklist_progress_bar = "//span[@class='checklist-progress-percentage js-checklist-progress-percent' and text()='%s']",
+            checklist_progress_bar = "//span[contains(@class, 'checklist-progress-percentage') and text()='%s']",
             toast = "//div[@role='%s']/descendant::span[text()='%s']",
-            card_column = "//h2[@data-testid='list-name' and text() = '%s']/ancestor::div[@data-testid='list']";
+            card_column = "//h2[@data-testid='list-name' and text()='%s']/ancestor::div[@data-testid='list']";
 
     public Button buttonLabels() {
         return new ButtonImpl($(button_labels));
@@ -108,7 +108,8 @@ public class BoardPage extends PageObject {
     }
 
     public void uploadAttachment(String path) {
-        upload(path).to($(input_file_upload));
+        String filePath = System.getProperty("user.dir") + "/src/test/resources/files/" + path;
+        upload(filePath).to($(input_file_upload));
     }
 
     public WebElement attachmentName() {
@@ -158,7 +159,7 @@ public class BoardPage extends PageObject {
         String formattedElement = String.format(toast, type, message);
         return new WebElementImpl($(formattedElement));
     }
-    
+
     public WebElement cardColumn(String heading) {
         String formattedElement = String.format(card_column, heading);
         return new WebElementImpl($(formattedElement));
