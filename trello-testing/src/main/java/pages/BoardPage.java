@@ -15,7 +15,7 @@ public class BoardPage extends PageObject {
     private final By button_labels = By.xpath("//a[@class='button-link js-edit-labels']"),
             button_attachment = By.xpath("//div[contains(@class, 'js-new-card-attachment-picker-react-root-for-sidebar')]"),
             button_checklist = By.xpath("//div[contains(@class, 'js-add-checklist-menu')]"),
-            input_label_title = By.xpath("//section[@data-testid='labels-popover-create-label-screen']/descendant::input[@type='text']"),
+            input_label_title = By.xpath("//section[@data-testid='labels-popover-create-label-screen']//input[@type='text']"),
             card_label = By.xpath("//span[@data-testid='card-label']"),
             label_section = By.xpath("//div[contains(@class, 'js-card-back-labels-container')]"),
             button_remove_color = By.xpath("//button[@type='button' and contains(text(), 'Remove color')]"),
@@ -35,12 +35,12 @@ public class BoardPage extends PageObject {
 
     private final String
             task_card = "//div[(h2[text()='%s'])]/../../ol/li[div//a[text()='%s']]",
-            heading_card_item = "//div[contains(@class, 'window-module-title')]/descendant::h3[text()='%s']",
+            heading_card_item = "//div[contains(@class, 'window-module-title')]//h3[text()='%s']",
             button_labels_action = "//button[@type='button' and text()='%s']",
             button_submit = "//button[@type='submit' and text()='%s']",
-            button_edit_label = "//section[@data-testid='labels-popover-labels-screen']/descendant::span[@data-testid='card-label' and text()='%s']/following-sibling::button",
+            button_edit_label = "//section[@data-testid='labels-popover-labels-screen']//span[text()='%s']/../button",
             checklist_progress_bar = "//span[contains(@class, 'checklist-progress-percentage') and text()='%s']",
-            toast = "//div[@role='%s']/descendant::span[text()='%s']",
+            toast = "//div[@role='%s']//span[text()='%s']",
             card_column = "//h2[@data-testid='list-name' and text()='%s']/ancestor::div[@data-testid='list']";
 
     public Button buttonLabels() {
