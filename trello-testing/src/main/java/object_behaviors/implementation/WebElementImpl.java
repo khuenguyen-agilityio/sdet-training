@@ -39,7 +39,7 @@ public class WebElementImpl implements WebElement {
                 .with()
                 .ignoreExceptions()
                 .pollInterval(Duration.ofMillis(500))
-                .until(() -> isVisible() == true);
+                .until(this::isVisible);
         return this.element;
     }
 
@@ -50,7 +50,7 @@ public class WebElementImpl implements WebElement {
                 .with()
                 .ignoreExceptions()
                 .pollInterval(interval)
-                .until(() -> isVisible() == true);
+                .until(this::isVisible);
         return this.element;
     }
 
@@ -61,7 +61,7 @@ public class WebElementImpl implements WebElement {
                 .with()
                 .ignoreExceptions()
                 .pollInterval(Duration.ofMillis(500))
-                .until(() -> isVisible() == false);
+                .until(() -> !isVisible());
         return this.element;
     }
 
@@ -72,7 +72,7 @@ public class WebElementImpl implements WebElement {
                 .with()
                 .ignoreExceptions()
                 .pollInterval(interval)
-                .until(() -> isVisible() == false);
+                .until(() -> !isVisible());
         return this.element;
     }
 
