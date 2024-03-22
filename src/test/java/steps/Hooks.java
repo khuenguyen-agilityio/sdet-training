@@ -15,7 +15,7 @@ public class Hooks {
         Storage.instantiateStorage();
     }
 
-    @After("@delete_test_label")
+    @After(value = "@delete_test_label")
     public void deleteTestLabel() {
         boardPageActions.deleteTestLabel();
     }
