@@ -22,7 +22,6 @@
 - Framework & Libraries
     - Java [ver 21]
     - Maven [ver 3.9.6]
-    - Cucumber [ver 7.15.0]
     - Serenity BDD [ver 4.0.15]
     - JUnit5 [ver 5.10.0]
 - IDE: IntelliJIDEA
