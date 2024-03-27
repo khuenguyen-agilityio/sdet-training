@@ -8,15 +8,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebDriver;
-import questions.ProductPageHeading;
+import tasks.add_product.AddProductsToCart;
 import tasks.login.Login;
 import tasks.start.Start;
 
-import static net.serenitybdd.screenplay.GivenWhenThen.*;
-import static org.hamcrest.Matchers.equalTo;
+import java.util.ArrayList;
+import java.util.List;
+
+import static net.serenitybdd.screenplay.GivenWhenThen.givenThat;
+import static net.serenitybdd.screenplay.GivenWhenThen.when;
 
 @ExtendWith(SerenityJUnit5Extension.class)
-public class TestLogin {
+public class TestAddProducts {
     private Actor khue = Actor.named("Khue");
 
     @Managed
@@ -28,12 +31,16 @@ public class TestLogin {
     }
 
     @Test
-    void shouldLoginToTheApp() {
-        givenThat(khue).wasAbleTo(Start.inputStandardAccount("standard_user", "secret_sauce"));
+    void shouldAddProductsToCart() {
+        List<String> products = new ArrayList<>();
+        products.add("Sauce Labs Backpack");
+        products.add("Sauce Labs Bike Light");
 
-        when(khue).attemptsTo(Login.clickSubmitButton());
+        givenThat(khue).wasAbleTo(
+                Start.inputStandardAccount("standard_user", "secret_sauce"),
+                Login.clickSubmitButton()
+        );
 
-        then(khue).should(seeThat(ProductPageHeading.textHeading(), equalTo("Product")));
-        then(khue).should(seeThat(ProductPageHeading.textHeading(), equalTo("Products")));
+        when(khue).attemptsTo(AddProductsToCart.called(products));
     }
 }

@@ -1,4 +1,4 @@
-package tasks;
+package tasks.start;
 
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
